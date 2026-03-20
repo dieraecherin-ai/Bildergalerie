@@ -294,7 +294,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 
     <div id="bottom-toolbar" style="display:none">
       <span style="font-size:12px;color:#aaa;margin-right:4px">Auswahl:</span>
-      <button class="tb-btn admin-only" onclick="clearAll()">Bewertungen zurücksetzen</button>
+      <button class="tb-btn" onclick="clearAll()">Bewertungen zurücksetzen</button>
       <button class="tb-btn danger admin-only" onclick="removeAll()">Alle entfernen</button>
     </div>
   </div>
@@ -306,7 +306,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
       <div class="download-box">
         <p>Ausgewählte Fotos herunterladen:</p>
         <button class="dl-btn" onclick="downloadZip('fav')">&#9733; Favoriten (ZIP)</button>
-        <button class="dl-btn secondary admin-only" onclick="downloadZip('all')">Alle Fotos (ZIP)</button>
+        <button class="dl-btn secondary" onclick="downloadZip('all')">Alle Fotos (ZIP)</button>
         <div id="dl-progress">
           <span id="dl-status">Erstelle ZIP...</span>
           <div id="dl-bar-wrap"><div id="dl-bar"></div></div>
@@ -333,7 +333,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 
     <div class="side-section">
       <div class="side-title">Aktionen</div>
-      <a class="side-link admin-only" onclick="clearAll()">&#8594; Bewertungen löschen</a>
+      <a class="side-link" onclick="clearAll()">&#8594; Bewertungen löschen</a>
       <a class="side-link admin-only" onclick="removeAll()">&#8594; Alle entfernen</a>
     </div>
   </div>
