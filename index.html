@@ -10,19 +10,25 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Source Sans 3',Arial,sans-serif;background:#fff;color:#333;font-size:14px;line-height:1.6}
 
-/* PASSWORT */
+/* LOGIN */
 #pw-screen{position:fixed;inset:0;background:#faf7f5;display:flex;align-items:center;justify-content:center;z-index:9999}
-#pw-box{background:#fff;border:1px solid #ddd;border-radius:4px;padding:40px 36px;width:340px;max-width:95vw;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+#pw-box{background:#fff;border:1px solid #ddd;border-radius:4px;padding:40px 36px;width:360px;max-width:95vw;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
 #pw-box h2{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:600;color:#222;margin-bottom:6px}
 #pw-box p{font-size:13px;color:#888;font-style:italic;font-family:'Lora',Georgia,serif;margin-bottom:28px}
-#pw-box input{width:100%;padding:10px 14px;border:1px solid #ccc;border-radius:3px;font-family:'Source Sans 3',Arial,sans-serif;font-size:15px;text-align:center;letter-spacing:.1em;margin-bottom:12px;outline:none;transition:border-color .15s}
-#pw-box input:focus{border-color:#888}
-#pw-box button{width:100%;padding:10px;border:none;border-radius:3px;background:#555;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
+#pw-box .field{text-align:left;margin-bottom:12px}
+#pw-box label{font-size:11px;font-weight:700;color:#888;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px}
+#pw-box input{width:100%;padding:10px 14px;border:1px solid #ccc;border-radius:3px;font-family:'Source Sans 3',Arial,sans-serif;font-size:14px;outline:none;transition:border-color .15s}
+#pw-box input:focus{border-color:#555}
+#pw-box button{width:100%;padding:10px;border:none;border-radius:3px;background:#555;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:4px}
 #pw-box button:hover{background:#333}
-#pw-error{color:#c0392b;font-size:12px;margin-top:8px;display:none}
+#pw-box button:disabled{background:#aaa;cursor:not-allowed}
+#pw-error{color:#c0392b;font-size:12px;margin-top:10px;display:none}
+#pw-loading{color:#888;font-size:12px;margin-top:10px;display:none}
 #pw-screen.hidden{display:none}
 #main-content{display:none}
 #main-content.visible{display:block}
+#logout-btn{font-size:12px;color:#aaa;cursor:pointer;padding:4px 8px;border:1px solid #e0e0e0;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif}
+#logout-btn:hover{color:#555;border-color:#aaa}
 
 /* HEADER */
 #site-header{background:#fff;border-bottom:1px solid #ddd;text-align:center;padding:28px 20px 18px}
@@ -155,14 +161,21 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 </head>
 <body>
 
-<!-- PASSWORT -->
+<!-- LOGIN -->
 <div id="pw-screen">
   <div id="pw-box">
     <h2>Biancas Galerie</h2>
-    <p>Bitte gib das Passwort ein, um die Galerie zu öffnen.</p>
-    <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPassword()">
-    <button onclick="checkPassword()">Öffnen</button>
-    <div id="pw-error">&#10060; Falsches Passwort – bitte versuche es erneut.</div>
+    <p>Bitte melde dich an, um die Galerie zu öffnen.</p>
+    <div class="field">
+      <label>E-Mail</label>
+      <input type="email" id="pw-email" placeholder="deine@email.de" onkeydown="if(event.key==='Enter')document.getElementById('pw-pass').focus()">
+    </div>
+    <div class="field">
+      <input type="password" id="pw-pass" placeholder="Passwort" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button id="login-btn" onclick="doLogin()">Anmelden</button>
+    <div id="pw-error">&#10060; Falsche E-Mail oder falsches Passwort.</div>
+    <div id="pw-loading">&#9203; Anmeldung läuft...</div>
   </div>
 </div>
 
@@ -184,6 +197,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
     <span id="selection-count" style="font-size:12px;color:#888;white-space:nowrap">0 ausgewählt</span>
     <button class="nav-btn download" onclick="downloadZip('pick')">&#8659; Picks als ZIP</button>
     <button class="nav-btn primary" onclick="document.getElementById('upload-input').click()">+ Fotos hochladen</button>
+    <button id="logout-btn" onclick="doLogout()">Abmelden</button>
     <input type="file" id="upload-input" accept="image/*" multiple onchange="uploadPhotos(event)">
   </div>
 </div>
@@ -304,7 +318,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 // ══════════════════════════════════════
 // KONFIGURATION
 // ══════════════════════════════════════
-const PASSWORT       = 'bianca2024';
 const CLOUD_NAME     = 'dwiwry3ni';
 const UPLOAD_PRESET  = 'biancas_galerie';
 const SUPABASE_URL   = 'https://bhcmgcchdhckwpsjsidy.supabase.co';
@@ -343,34 +356,82 @@ const DB = {
 };
 
 // ══════════════════════════════════════
-// PASSWORT
+// SUPABASE AUTH
 // ══════════════════════════════════════
-function checkPassword() {
-  const input = document.getElementById('pw-input').value;
-  const error = document.getElementById('pw-error');
-  if (input === PASSWORT) {
-    sessionStorage.setItem('galerie_auth', '1');
-    document.getElementById('pw-screen').classList.add('hidden');
-    document.getElementById('main-content').classList.add('visible');
-    error.style.display = 'none';
-    init();
-  } else {
+let authToken = null;
+
+async function doLogin() {
+  const email    = document.getElementById('pw-email').value.trim();
+  const password = document.getElementById('pw-pass').value;
+  const btn      = document.getElementById('login-btn');
+  const error    = document.getElementById('pw-error');
+  const loading  = document.getElementById('pw-loading');
+
+  if (!email || !password) return;
+
+  btn.disabled = true;
+  error.style.display = 'none';
+  loading.style.display = 'block';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (data.access_token) {
+      authToken = data.access_token;
+      // Update DB headers with user token for RLS
+      DB.headers['Authorization'] = 'Bearer ' + authToken;
+      sessionStorage.setItem('galerie_token', authToken);
+
+      loading.style.display = 'none';
+      document.getElementById('pw-screen').classList.add('hidden');
+      document.getElementById('main-content').classList.add('visible');
+      init();
+    } else {
+      throw new Error('Login fehlgeschlagen');
+    }
+  } catch(e) {
+    loading.style.display = 'none';
     error.style.display = 'block';
-    document.getElementById('pw-input').value = '';
-    document.getElementById('pw-input').focus();
-    const box = document.getElementById('pw-box');
-    box.style.border = '1px solid #c0392b';
-    setTimeout(() => box.style.border = '1px solid #ddd', 600);
+    btn.disabled = false;
+    document.getElementById('pw-pass').value = '';
+    document.getElementById('pw-pass').focus();
   }
 }
 
-if (sessionStorage.getItem('galerie_auth') === '1') {
+async function doLogout() {
+  if (!confirm('Wirklich abmelden?')) return;
+  try {
+    await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + authToken }
+    });
+  } catch(e) {}
+  authToken = null;
+  sessionStorage.removeItem('galerie_token');
+  document.getElementById('main-content').classList.remove('visible');
+  document.getElementById('pw-screen').classList.remove('hidden');
+  document.getElementById('pw-email').value = '';
+  document.getElementById('pw-pass').value = '';
+  document.getElementById('login-btn').disabled = false;
+  photos = [];
+}
+
+// Beim Laden: gespeichertes Token prüfen
+const savedToken = sessionStorage.getItem('galerie_token');
+if (savedToken) {
+  authToken = savedToken;
+  DB.headers['Authorization'] = 'Bearer ' + authToken;
   document.getElementById('pw-screen').classList.add('hidden');
   document.getElementById('main-content').classList.add('visible');
   document.addEventListener('DOMContentLoaded', init);
 } else {
   document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('pw-input').focus();
+    document.getElementById('pw-email').focus();
   });
 }
 
