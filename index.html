@@ -10,222 +10,211 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Source Sans 3',Arial,sans-serif;background:#fff;color:#333;font-size:14px;line-height:1.6}
 
-/* LOGIN */
-#pw-screen{position:fixed;inset:0;background:#faf7f5;display:flex;align-items:center;justify-content:center;z-index:9999}
-#pw-box{background:#fff;border:1px solid #ddd;border-radius:4px;padding:40px 36px;width:360px;max-width:95vw;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
-#pw-box h2{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:600;color:#222;margin-bottom:6px}
+/* ── LOGIN ── */
+#pw-screen{position:fixed;inset:0;background:#f5f5f5;display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px}
+#pw-box{background:#fff;border:1px solid #ddd;border-radius:4px;padding:40px 36px;width:360px;max-width:100%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+#pw-box h2{font-family:'Lora',Georgia,serif;font-size:28px;font-weight:600;color:#111;margin-bottom:6px}
 #pw-box p{font-size:13px;color:#888;font-style:italic;font-family:'Lora',Georgia,serif;margin-bottom:28px}
-#pw-box .field{text-align:left;margin-bottom:12px}
+#pw-box .field{text-align:left;margin-bottom:14px}
 #pw-box label{font-size:11px;font-weight:700;color:#888;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:4px}
-#pw-box input{width:100%;padding:10px 14px;border:1px solid #ccc;border-radius:3px;font-family:'Source Sans 3',Arial,sans-serif;font-size:14px;outline:none;transition:border-color .15s}
-#pw-box input:focus{border-color:#555}
-#pw-box button{width:100%;padding:10px;border:none;border-radius:3px;background:#555;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:4px}
-#pw-box button:hover{background:#333}
+#pw-box input{width:100%;padding:11px 14px;border:1px solid #ccc;border-radius:3px;font-family:'Source Sans 3',Arial,sans-serif;font-size:15px;outline:none;transition:border-color .15s}
+#pw-box input:focus{border-color:#333}
+#pw-box button{width:100%;padding:12px;border:none;border-radius:3px;background:#222;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:6px}
+#pw-box button:hover{background:#000}
 #pw-box button:disabled{background:#aaa;cursor:not-allowed}
-#pw-error{color:#c0392b;font-size:12px;margin-top:10px;display:none}
+#pw-error{color:#888;font-size:12px;margin-top:10px;display:none;border:1px solid #ddd;border-radius:3px;padding:8px}
 #pw-loading{color:#888;font-size:12px;margin-top:10px;display:none}
 #pw-screen.hidden{display:none}
 #main-content{display:none}
 #main-content.visible{display:block}
-#logout-btn{font-size:12px;color:#aaa;cursor:pointer;padding:4px 8px;border:1px solid #e0e0e0;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif}
-#logout-btn:hover{color:#555;border-color:#aaa}
 
-/* HEADER */
-#site-header{background:#fff;border-bottom:1px solid #ddd;text-align:center;padding:28px 20px 18px}
-#site-header h1{font-family:'Lora',Georgia,serif;font-size:36px;font-weight:600;color:#222;letter-spacing:-.5px;margin-bottom:5px}
-#site-header .tagline{font-size:13px;color:#888;font-style:italic;font-family:'Lora',Georgia,serif}
-#nav-bar{background:#f9f9f9;border-bottom:1px solid #ddd;padding:0 20px;display:flex;align-items:center;overflow-x:auto}
-.nav-link{padding:10px 15px;font-size:13px;font-weight:600;color:#555;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;text-decoration:none;display:block}
-.nav-link:hover{color:#222}
-.nav-link.active{color:#333;border-bottom-color:#888}
+/* ── HEADER ── */
+#site-header{background:#fff;border-bottom:1px solid #ddd;text-align:center;padding:24px 20px 16px}
+#site-header h1{font-family:'Lora',Georgia,serif;font-size:32px;font-weight:600;color:#111;letter-spacing:-.5px;margin-bottom:4px}
+#site-header .tagline{font-size:13px;color:#999;font-style:italic;font-family:'Lora',Georgia,serif}
+
+/* ── NAV ── */
+#nav-bar{background:#f9f9f9;border-bottom:1px solid #ddd;padding:0 20px;display:flex;align-items:center;overflow-x:auto;gap:0}
+.nav-link{padding:10px 14px;font-size:13px;font-weight:600;color:#666;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;text-decoration:none;display:block}
+.nav-link:hover{color:#111}
+.nav-link.active{color:#111;border-bottom-color:#333}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;padding:6px 0;flex-shrink:0}
-.nav-btn{padding:6px 14px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;transition:background .15s;white-space:nowrap}
-.nav-btn:hover{background:#f0f0f0}
-.nav-btn.primary{background:#555;color:#fff;border-color:#555}
-.nav-btn.primary:hover{background:#333}
-.nav-btn.download{background:#2a6a2a;color:#fff;border-color:#2a6a2a}
-.nav-btn.download:hover{background:#1e4e1e}
+.nav-btn{padding:6px 14px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;color:#444;cursor:pointer;transition:all .15s;white-space:nowrap}
+.nav-btn:hover{background:#f0f0f0;border-color:#aaa}
+.nav-btn.primary{background:#222;color:#fff;border-color:#222}
+.nav-btn.primary:hover{background:#000}
+.nav-btn.dark{background:#222;color:#fff;border-color:#222}
+.nav-btn.dark:hover{background:#000}
+#logout-btn{font-size:12px;color:#aaa;cursor:pointer;padding:4px 8px;border:1px solid #e0e0e0;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif}
+#logout-btn:hover{color:#333;border-color:#aaa}
 
-/* LAYOUT */
-#layout{display:flex;max-width:1160px;margin:0 auto;padding:24px 16px;gap:32px;align-items:flex-start}
+/* ── LAYOUT ── */
+#layout{display:flex;max-width:1160px;margin:0 auto;padding:24px 16px;gap:28px;align-items:flex-start}
 #content{flex:1;min-width:0}
-#toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #eee}
+
+/* ── TOOLBAR ── */
+#toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #eee}
 #upload-zone{border:1px dashed #bbb;border-radius:3px;padding:7px 14px;cursor:pointer;color:#666;font-size:12px;font-weight:600;transition:all .15s;background:#fafafa}
-#upload-zone:hover{border-color:#888;background:#f0f0f0;color:#333}
-#upload-zone.uploading{border-color:#3a7a3a;color:#3a7a3a;background:#f0f8f0}
+#upload-zone:hover{border-color:#555;background:#f0f0f0;color:#222}
+#upload-zone.uploading{border-color:#555;color:#333;background:#f5f5f5}
 #upload-input{display:none}
-.sep{width:1px;height:20px;background:#ddd;margin:0 2px}
+.sep{width:1px;height:20px;background:#e0e0e0;margin:0 2px}
 select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;color:#555;background:#fff;cursor:pointer}
 .view-btn{width:28px;height:28px;border:1px solid #ddd;border-radius:3px;background:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.view-btn:hover,.view-btn.active{background:#eee;border-color:#aaa}
+.view-btn:hover,.view-btn.active{background:#222;color:#fff;border-color:#222}
 
-/* LOADING */
-#loading-bar{display:none;margin-bottom:14px;padding:10px 14px;background:#f0f8f0;border:1px solid #b8ddb8;border-radius:3px;font-size:12px;color:#3a7a3a}
-#upl-bar-wrap{height:5px;background:#c8e8c8;border-radius:3px;margin-top:6px;overflow:hidden}
-#upl-bar{height:100%;background:#3a7a3a;width:0%;transition:width .2s}
+/* ── UPLOAD PROGRESS ── */
+#loading-bar{display:none;margin-bottom:14px;padding:10px 14px;background:#f5f5f5;border:1px solid #ddd;border-radius:3px;font-size:12px;color:#555}
+#upl-bar-wrap{height:4px;background:#ddd;border-radius:2px;margin-top:6px;overflow:hidden}
+#upl-bar{height:100%;background:#333;width:0%;transition:width .2s}
+#sync-status{font-size:11px;color:#aaa;padding:4px 0;margin-bottom:8px;min-height:18px}
 
-/* SYNC INDICATOR */
-#sync-status{font-size:11px;color:#aaa;padding:4px 0;margin-bottom:10px}
-
-/* EMPTY STATE */
-#empty-state{text-align:center;padding:60px 20px;color:#aaa;border:1px dashed #ddd;border-radius:4px}
-#empty-state .big-icon{font-size:48px;display:block;margin-bottom:14px}
+/* ── EMPTY STATE ── */
+#empty-state{text-align:center;padding:60px 20px;color:#bbb;border:1px dashed #e0e0e0;border-radius:4px;display:none}
+#empty-state .big-icon{font-size:44px;display:block;margin-bottom:14px;opacity:.4}
 #empty-state p{font-size:15px;color:#bbb;margin-bottom:6px}
 #empty-state small{font-size:12px;color:#ccc}
 
-/* MASONRY */
-#grid{columns:4;column-gap:12px}
+/* ── MASONRY GRID ── */
+#grid{columns:4;column-gap:10px}
 #grid.cols-3{columns:3}
 #grid.cols-2{columns:2}
 #grid.list-view{columns:1}
-.photo-card{break-inside:avoid;margin-bottom:12px;background:#fff;border:1px solid #e0e0e0;border-radius:2px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative;display:block}
-.photo-card:hover{border-color:#999;box-shadow:0 3px 12px rgba(0,0,0,.1)}
-.photo-card.selected-fav{border-color:#c8a200;border-width:2px}
-.photo-card.selected-pick{border-color:#3a7a3a;border-width:2px}
-.photo-card.selected-reject{border-color:#c0392b;border-width:2px;opacity:.5}
-.photo-card.uploading-card{opacity:.6}
-.img-wrap{position:relative;overflow:hidden;background:#f5f5f5;line-height:0}
-.img-wrap img{width:100%;height:auto;display:block;transition:transform .35s}
-.photo-card:hover .img-wrap img{transform:scale(1.03)}
-.upload-spinner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.75);font-size:12px;color:#3a7a3a;font-weight:600}
-.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.4) 0%,transparent 50%);opacity:0;transition:opacity .2s}
+
+.photo-card{break-inside:avoid;margin-bottom:10px;background:#fff;border:1px solid #e8e8e8;border-radius:2px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative;display:block}
+.photo-card:hover{border-color:#aaa;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.photo-card.selected-fav{border:2px solid #333}
+.photo-card.selected-reject{border:2px solid #bbb;opacity:.5}
+.photo-card.uploading-card{opacity:.55}
+
+.img-wrap{position:relative;overflow:hidden;background:#f0f0f0;line-height:0}
+.img-wrap img{width:100%;height:auto;display:block;transition:transform .3s}
+.photo-card:hover .img-wrap img{transform:scale(1.02)}
+
+.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45) 0%,transparent 55%);opacity:0;transition:opacity .2s}
 .photo-card:hover .overlay{opacity:1}
-.actions{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:7px;opacity:0;transition:opacity .2s}
+
+.actions{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:8px;opacity:0;transition:opacity .2s}
 .photo-card:hover .actions{opacity:1}
-.action-btn{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:transform .15s}
-.action-btn:hover{transform:scale(1.18)}
-.btn-fav{background:rgba(255,240,140,.92);color:#8a6a00}
-.btn-pick{background:rgba(190,240,190,.92);color:#1a5a1a}
-.btn-reject{background:rgba(255,195,185,.92);color:#a02020}
-.btn-dl{background:rgba(190,240,190,.92);color:#1a5a1a}
+.action-btn{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:transform .15s;background:rgba(255,255,255,.9);color:#222}
+.action-btn:hover{transform:scale(1.15);background:#fff}
+.action-btn.active-fav{background:#222;color:#fff}
+.action-btn.active-reject{background:#888;color:#fff}
+
 .status-badge{position:absolute;top:7px;left:7px;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:.04em;pointer-events:none}
-.badge-fav{background:#c8a200;color:#fff}
-.badge-pick{background:#3a7a3a;color:#fff}
-.badge-reject{background:#c0392b;color:#fff}
-.photo-card .num{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.45);color:#fff;border-radius:2px;font-size:10px;font-weight:700;padding:1px 5px;pointer-events:none}
+.badge-fav{background:#222;color:#fff}
+.badge-reject{background:#999;color:#fff}
+.photo-card .num{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.4);color:#fff;border-radius:2px;font-size:10px;font-weight:700;padding:1px 5px;pointer-events:none}
+
 .photo-card .info{padding:7px 10px;border-top:1px solid #f0f0f0}
 .photo-card .filename{font-size:11px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.photo-card .meta{font-size:10px;color:#aaa;margin-top:1px}
+.photo-card .meta{font-size:10px;color:#bbb;margin-top:1px}
+
+/* LIST VIEW */
 #grid.list-view .photo-card{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-#grid.list-view .img-wrap{width:90px;flex-shrink:0;line-height:0}
+#grid.list-view .img-wrap{width:90px;flex-shrink:0}
 #grid.list-view .img-wrap img{width:90px;height:68px;object-fit:cover}
 #grid.list-view .info{flex:1;border-top:none}
 #grid.list-view .actions{position:static;opacity:1;justify-content:flex-end;padding:0 10px 0 0}
 #grid.list-view .overlay{display:none}
 
-#bottom-toolbar{margin-top:4px;padding-top:12px;border-top:1px solid #eee;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.tb-btn{padding:5px 12px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;transition:all .15s}
-.tb-btn:hover{background:#f0f0f0}
-.tb-btn.danger{color:#c0392b;border-color:#e8bbb8}
-.tb-btn.danger:hover{background:#fdf0ee}
+/* ── BOTTOM TOOLBAR ── */
+#bottom-toolbar{margin-top:8px;padding-top:12px;border-top:1px solid #eee;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tb-btn{padding:5px 12px;border:1px solid #ddd;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;transition:all .15s}
+.tb-btn:hover{background:#f5f5f5;border-color:#aaa}
+.tb-btn.danger{color:#999;border-color:#e0e0e0}
+.tb-btn.danger:hover{background:#f5f5f5;color:#555}
 
-/* SIDEBAR */
-#sidebar{width:185px;min-width:185px;flex-shrink:0}
-.side-section{margin-bottom:22px}
-.side-title{font-family:'Lora',Georgia,serif;font-size:13px;font-weight:600;color:#333;border-bottom:1px solid #ddd;padding-bottom:5px;margin-bottom:10px}
-.stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;font-size:12px;color:#555;border-bottom:1px dotted #eee}
+/* ── SIDEBAR ── */
+#sidebar{width:180px;min-width:180px;flex-shrink:0}
+.side-section{margin-bottom:20px}
+.side-title{font-family:'Lora',Georgia,serif;font-size:13px;font-weight:600;color:#222;border-bottom:1px solid #e0e0e0;padding-bottom:5px;margin-bottom:10px}
+.stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;font-size:12px;color:#666;border-bottom:1px dotted #eee}
 .stat-row:last-child{border-bottom:none}
-.stat-num{font-weight:700;color:#333;font-size:14px}
-.side-link{display:block;font-size:12px;color:#555;text-decoration:none;padding:3px 0;cursor:pointer;transition:color .15s}
+.stat-num{font-weight:700;color:#222;font-size:14px}
+.side-link{display:block;font-size:12px;color:#666;text-decoration:none;padding:3px 0;cursor:pointer;transition:color .15s}
 .side-link:hover{color:#111;text-decoration:underline}
-.download-box{background:#f0f8f0;border:1px solid #b8ddb8;border-radius:3px;padding:12px;margin-bottom:10px}
-.download-box p{font-size:11px;color:#4a7a4a;margin-bottom:8px;line-height:1.4}
-.dl-btn{width:100%;padding:7px 10px;border:1px solid #3a7a3a;border-radius:3px;background:#3a7a3a;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;margin-bottom:5px;text-align:center;display:block}
-.dl-btn:hover{background:#2a5a2a}
-.dl-btn.secondary{background:#fff;color:#3a7a3a}
-.dl-btn.secondary:hover{background:#f0f8f0}
-#dl-progress{display:none;margin-top:8px;font-size:11px;color:#4a7a4a;text-align:center}
-#dl-bar-wrap{height:4px;background:#c8e8c8;border-radius:2px;margin-top:4px;overflow:hidden}
-#dl-bar{height:100%;background:#3a7a3a;width:0%;transition:width .2s}
 
-/* LIGHTBOX */
-#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center}
+/* DOWNLOAD BOX */
+.download-box{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:3px;padding:12px;margin-bottom:10px}
+.download-box p{font-size:11px;color:#777;margin-bottom:8px;line-height:1.4}
+.dl-btn{width:100%;padding:8px 10px;border:1px solid #222;border-radius:3px;background:#222;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;margin-bottom:5px;text-align:center;display:block}
+.dl-btn:hover{background:#000}
+.dl-btn.secondary{background:#fff;color:#333;border-color:#ccc}
+.dl-btn.secondary:hover{background:#f5f5f5}
+#dl-progress{display:none;margin-top:8px;font-size:11px;color:#666;text-align:center}
+#dl-bar-wrap{height:3px;background:#ddd;border-radius:2px;margin-top:5px;overflow:hidden}
+#dl-bar{height:100%;background:#333;width:0%;transition:width .2s}
+
+/* ── LIGHTBOX ── */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center}
 #lightbox.open{display:flex}
-#lb-inner{background:#fff;border-radius:2px;max-width:94vw;max-height:94vh;overflow:hidden;display:flex;flex-direction:column}
+#lb-inner{background:#fff;max-width:96vw;max-height:96vh;overflow:hidden;display:flex;flex-direction:column}
 #lb-img-wrap{overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0a0a;flex:1;min-height:0}
-#lb-img{max-width:90vw;max-height:82vh;object-fit:contain;display:block}
-#lb-bar{padding:9px 14px;display:flex;align-items:center;gap:8px;border-top:1px solid #eee;background:#fafafa;flex-shrink:0;flex-wrap:wrap}
-#lb-name{font-size:12px;color:#666;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lb-btn{padding:5px 11px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:#555;white-space:nowrap}
-.lb-btn.fav{border-color:#c8a200;color:#9a7a00}.lb-btn.fav:hover{background:#fffae0}
-.lb-btn.pick{border-color:#3a7a3a;color:#3a7a3a}.lb-btn.pick:hover{background:#f0f8f0}
-.lb-btn.reject{border-color:#c0392b;color:#c0392b}.lb-btn.reject:hover{background:#fdf0ee}
-.lb-btn.dl{border-color:#3a7a3a;background:#3a7a3a;color:#fff}.lb-btn.dl:hover{background:#2a5a2a}
-.lb-nav-btn{width:30px;height:30px;border-radius:2px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}
+#lb-img{max-width:92vw;max-height:84vh;object-fit:contain;display:block}
+#lb-bar{padding:10px 14px;display:flex;align-items:center;gap:8px;border-top:1px solid #eee;background:#fafafa;flex-shrink:0;flex-wrap:wrap}
+#lb-name{font-size:12px;color:#777;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-btn{padding:6px 12px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:#444;white-space:nowrap;transition:all .15s}
+.lb-btn:hover{background:#f0f0f0}
+.lb-btn.fav{border-color:#333;color:#111}.lb-btn.fav:hover{background:#f0f0f0}
+.lb-btn.reject{border-color:#bbb;color:#888}.lb-btn.reject:hover{background:#f5f5f5}
+.lb-btn.dl{border-color:#222;background:#222;color:#fff}.lb-btn.dl:hover{background:#000}
+.lb-nav-btn{width:32px;height:32px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .lb-nav-btn:hover{background:#eee}
-#lb-close{width:26px;height:26px;border:1px solid #ddd;border-radius:2px;background:#fff;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+#lb-close{width:28px;height:28px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
 #lb-close:hover{background:#eee}
 
-#site-footer{text-align:center;padding:20px;border-top:1px solid #ddd;font-size:11px;color:#aaa;margin-top:40px}
+/* ── FOOTER ── */
+#site-footer{text-align:center;padding:20px;border-top:1px solid #eee;font-size:11px;color:#bbb;margin-top:40px}
 
-/* Touch-Geräte: Aktionen immer anzeigen */
-@media (hover: none) {
+/* ── TOUCH: immer Buttons zeigen ── */
+@media (hover:none){
   .actions{opacity:1}
   .overlay{opacity:1}
-  .photo-card .img-wrap img{transform:none !important}
 }
-@media (max-width: 700px) {
-  /* Header */
-  #site-header{padding:18px 16px 14px}
-  #site-header h1{font-size:24px}
 
-  /* Nav: Filter-Links verstecken, nur Icons zeigen */
-  #nav-bar{padding:0 10px;flex-wrap:wrap}
-  .nav-link{padding:8px 10px;font-size:12px}
-  .nav-right{width:100%;padding:6px 0;gap:6px;border-top:1px solid #eee;justify-content:flex-end}
-  .nav-btn{font-size:11px;padding:5px 10px}
-  #logout-btn{font-size:11px;padding:4px 8px}
+/* ── MOBIL ── */
+@media (max-width:700px){
+  #site-header{padding:16px 14px 12px}
+  #site-header h1{font-size:22px}
+  #site-header .tagline{font-size:12px}
 
-  /* Layout: Sidebar unter den Content */
-  #layout{flex-direction:column;padding:14px 12px;gap:0}
+  /* Nav kompakt */
+  #nav-bar{padding:0 8px}
+  .nav-link{padding:9px 10px;font-size:12px}
+  .nav-right{gap:5px}
+  .nav-btn{font-size:11px;padding:5px 9px}
+  #logout-btn{font-size:11px;padding:3px 7px}
 
-  /* Sidebar: horizontal als Statistik-Leiste oben */
-  #sidebar{width:100%;min-width:unset;order:-1;margin-bottom:16px}
-  .side-section{margin-bottom:14px}
+  /* Layout: Sidebar ganz weg auf Handy */
+  #layout{flex-direction:column;padding:10px 10px;gap:0}
+  #sidebar{display:none}
 
-  /* Download-Box kompakter */
-  .download-box{padding:10px}
-  .dl-btn{padding:9px;font-size:13px}
-
-  /* Stats als horizontale Zeile */
-  #sidebar .side-section:nth-child(2){background:#f9f9f9;border:1px solid #eee;border-radius:3px;padding:10px 12px}
-  .stat-row{padding:3px 0;font-size:12px}
-
-  /* Tastenkürzel auf Handy ausblenden */
-  #sidebar .side-section:nth-child(3){display:none}
-
-  /* Toolbar kompakter */
-  #toolbar{gap:6px;margin-bottom:12px;padding-bottom:10px}
-  #upload-zone{font-size:11px;padding:6px 10px;width:100%}
+  /* Toolbar */
+  #toolbar{gap:5px;margin-bottom:10px;padding-bottom:10px}
+  #upload-zone{width:100%;text-align:center;padding:10px;font-size:13px}
   .sep{display:none}
-  select#sort-select{font-size:12px}
-
-  /* Masonry: 2 Spalten auf Handy */
-  #grid{columns:2;column-gap:8px}
-  #grid.cols-2{columns:2}
-  #grid.cols-3{columns:2}
-  #grid.cols-4{columns:2}
-  .photo-card{margin-bottom:8px}
-
-  /* Foto-Aktionen immer sichtbar auf Touch */
-  .actions{opacity:1 !important}
-  .action-btn{width:28px;height:28px;font-size:12px}
-
-  /* Spalten-Buttons ausblenden (immer 2 auf Handy) */
   #btn-2,#btn-3,#btn-4,#btn-list{display:none}
-  label[style*="Spalten"]{display:none}
 
-  /* Lightbox auf Handy */
-  #lb-bar{padding:8px 10px;gap:5px}
-  .lb-btn{padding:5px 8px;font-size:11px}
-  #lb-name{display:none}
-  #lb-img{max-width:100vw;max-height:75vh}
+  /* Grid: 2 Spalten, groß */
+  #grid{columns:2;column-gap:8px}
+  #grid.cols-2,#grid.cols-3,#grid.cols-4{columns:2}
+  .photo-card{margin-bottom:8px}
+  .photo-card .info{padding:5px 8px}
+  .photo-card .filename{font-size:10px}
+  .action-btn{width:32px;height:32px;font-size:13px}
 
   /* Bottom toolbar */
-  #bottom-toolbar{gap:6px}
-  .tb-btn{font-size:11px;padding:5px 10px}
+  #bottom-toolbar{gap:5px}
+  .tb-btn{font-size:11px;padding:5px 9px}
 
-  /* Login-Box */
+  /* Lightbox */
+  #lb-bar{padding:7px 10px;gap:5px}
+  .lb-btn{padding:5px 8px;font-size:11px}
+  #lb-name{display:none}
+  #lb-img{max-width:100vw;max-height:78vh}
+
+  /* Login */
   #pw-box{padding:28px 20px}
   #pw-box h2{font-size:22px}
 }
@@ -237,17 +226,18 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 <div id="pw-screen">
   <div id="pw-box">
     <h2>Biancas Galerie</h2>
-    <p>Bitte melde dich an, um die Galerie zu öffnen.</p>
+    <p>Bitte melde dich an.</p>
     <div class="field">
       <label>E-Mail</label>
       <input type="email" id="pw-email" placeholder="deine@email.de" onkeydown="if(event.key==='Enter')document.getElementById('pw-pass').focus()">
     </div>
     <div class="field">
+      <label>Passwort</label>
       <input type="password" id="pw-pass" placeholder="Passwort" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <button id="login-btn" onclick="doLogin()">Anmelden</button>
-    <div id="pw-error">&#10060; Falsche E-Mail oder falsches Passwort.</div>
-    <div id="pw-loading">&#9203; Anmeldung läuft...</div>
+    <div id="pw-error">Falsche E-Mail oder falsches Passwort.</div>
+    <div id="pw-loading">Anmeldung läuft...</div>
   </div>
 </div>
 
@@ -256,18 +246,17 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 
 <div id="site-header">
   <h1>Biancas Galerie</h1>
-  <div class="tagline">Fotos auswählen, sortieren und herunterladen &nbsp;&#9729;&nbsp; Cloud</div>
+  <div class="tagline">Fotos auswählen und herunterladen</div>
 </div>
 
 <div id="nav-bar">
   <a class="nav-link active" onclick="setFilter('all',this)">Alle Fotos</a>
   <a class="nav-link" onclick="setFilter('fav',this)">&#9733; Favoriten</a>
-  <a class="nav-link" onclick="setFilter('pick',this)">&#10003; Picks</a>
   <a class="nav-link" onclick="setFilter('reject',this)">&#10005; Abgelehnt</a>
   <a class="nav-link" onclick="setFilter('unrated',this)">&#9675; Unbewertet</a>
   <div class="nav-right">
-    <span id="selection-count" style="font-size:12px;color:#888;white-space:nowrap">0 ausgewählt</span>
-    <button class="nav-btn download" onclick="downloadZip('pick')">&#8659; Picks als ZIP</button>
+    <span id="selection-count" style="font-size:12px;color:#aaa;white-space:nowrap">0 Favoriten</span>
+    <button class="nav-btn dark" onclick="downloadZip('fav')">&#8659; Favoriten als ZIP</button>
     <button class="nav-btn primary" onclick="document.getElementById('upload-input').click()">+ Fotos hochladen</button>
     <button id="logout-btn" onclick="doLogout()">Abmelden</button>
     <input type="file" id="upload-input" accept="image/*" multiple onchange="uploadPhotos(event)">
@@ -277,7 +266,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 <div id="layout">
   <div id="content">
     <div id="toolbar">
-      <div id="upload-zone" onclick="document.getElementById('upload-input').click()">&#9729; Fotos hochladen (auf allen Geräten sichtbar)</div>
+      <div id="upload-zone" onclick="document.getElementById('upload-input').click()">&#9729; Fotos hochladen</div>
       <div class="sep"></div>
       <select id="sort-select" onchange="renderGallery()">
         <option value="date">Neueste zuerst</option>
@@ -285,7 +274,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
         <option value="fav">Favoriten zuerst</option>
       </select>
       <div class="sep"></div>
-      <label style="font-size:12px;color:#888">Spalten:</label>
       <button class="view-btn" id="btn-2" onclick="setCols(2)">2</button>
       <button class="view-btn" id="btn-3" onclick="setCols(3)">3</button>
       <button class="view-btn active" id="btn-4" onclick="setCols(4)">4</button>
@@ -298,9 +286,8 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
       <div id="upl-bar-wrap"><div id="upl-bar"></div></div>
     </div>
 
-    <div id="sync-status">&#9729; Verbinde mit Datenbank...</div>
-
-    <div id="empty-state" style="display:none">
+    <div id="sync-status"></div>
+    <div id="empty-state">
       <span class="big-icon">&#128247;</span>
       <p>Noch keine Fotos hochgeladen</p>
       <small>Fotos werden in der Cloud gespeichert – auf jedem Gerät sichtbar</small>
@@ -308,19 +295,18 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
     <div id="grid"></div>
 
     <div id="bottom-toolbar" style="display:none">
-      <span style="font-size:12px;color:#888;margin-right:4px">Auswahl:</span>
-      <button class="tb-btn" onclick="selectAll()">Alle als Pick</button>
+      <span style="font-size:12px;color:#aaa;margin-right:4px">Auswahl:</span>
       <button class="tb-btn" onclick="clearAll()">Bewertungen zurücksetzen</button>
       <button class="tb-btn danger" onclick="removeAll()">Alle entfernen</button>
     </div>
   </div>
 
+  <!-- SIDEBAR nur Desktop -->
   <div id="sidebar">
     <div class="side-section">
       <div class="side-title">&#8659; Download</div>
       <div class="download-box">
-        <p>Ausgewählte Fotos als ZIP herunterladen:</p>
-        <button class="dl-btn" onclick="downloadZip('pick')">&#10003; Picks (ZIP)</button>
+        <p>Ausgewählte Fotos herunterladen:</p>
         <button class="dl-btn" onclick="downloadZip('fav')">&#9733; Favoriten (ZIP)</button>
         <button class="dl-btn secondary" onclick="downloadZip('all')">Alle Fotos (ZIP)</button>
         <div id="dl-progress">
@@ -333,19 +319,17 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
     <div class="side-section">
       <div class="side-title">&#220;bersicht</div>
       <div class="stat-row"><span>Gesamt</span><span class="stat-num" id="stat-total">0</span></div>
-      <div class="stat-row"><span>&#10003; Picks</span><span class="stat-num" id="stat-picks" style="color:#3a7a3a">0</span></div>
-      <div class="stat-row"><span>&#9733; Favoriten</span><span class="stat-num" id="stat-favs" style="color:#9a7a00">0</span></div>
-      <div class="stat-row"><span>&#10005; Abgelehnt</span><span class="stat-num" id="stat-rejects" style="color:#c0392b">0</span></div>
+      <div class="stat-row"><span>&#9733; Favoriten</span><span class="stat-num" id="stat-favs">0</span></div>
+      <div class="stat-row"><span>&#10005; Abgelehnt</span><span class="stat-num" id="stat-rejects">0</span></div>
       <div class="stat-row"><span>&#9675; Unbewertet</span><span class="stat-num" id="stat-unrated">0</span></div>
     </div>
 
     <div class="side-section">
       <div class="side-title">Tastenkürzel</div>
-      <div style="font-size:11px;color:#888;line-height:1.9">
+      <div style="font-size:11px;color:#aaa;line-height:1.9">
         <b>F</b> — Favorit<br>
-        <b>P</b> — Pick<br>
         <b>R</b> — Ablehnen<br>
-        <b>D</b> — Foto laden<br>
+        <b>D</b> — Herunterladen<br>
         <b>&#8592; &#8594;</b> — navigieren<br>
         <b>Esc</b> — schließen
       </div>
@@ -353,13 +337,14 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 
     <div class="side-section">
       <div class="side-title">Aktionen</div>
-      <a class="side-link" onclick="selectAll()">&#8594; Alle als Pick</a>
       <a class="side-link" onclick="clearAll()">&#8594; Bewertungen löschen</a>
       <a class="side-link" onclick="exportCSV()">&#8594; CSV exportieren</a>
+      <a class="side-link" onclick="removeAll()">&#8594; Alle entfernen</a>
     </div>
   </div>
 </div>
 
+<!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox(event)">
   <div id="lb-inner">
     <div id="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
@@ -368,10 +353,9 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
         <button class="lb-nav-btn" onclick="lbNav(-1)">&#8249;</button>
         <button class="lb-nav-btn" onclick="lbNav(1)">&#8250;</button>
       </div>
-      <div id="lb-name">Foto</div>
+      <div id="lb-name"></div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="lb-btn fav"    onclick="markPhoto(lbIndex,'fav')">&#9733; Favorit</button>
-        <button class="lb-btn pick"   onclick="markPhoto(lbIndex,'pick')">&#10003; Pick</button>
         <button class="lb-btn reject" onclick="markPhoto(lbIndex,'reject')">&#10005; Ablehnen</button>
         <button class="lb-btn dl"     onclick="downloadSingle(lbIndex)">&#8659; Laden</button>
       </div>
@@ -380,271 +364,160 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
   </div>
 </div>
 
-<div id="site-footer">
-  Biancas Galerie &middot; Fotos in der Cloud (Cloudinary + Supabase) &middot; auf allen Ger&auml;ten sichtbar
-</div>
-
+<div id="site-footer">Biancas Galerie &middot; Cloudinary + Supabase &middot; auf allen Geräten sichtbar</div>
 </div><!-- end main-content -->
 
 <script>
-// ══════════════════════════════════════
-// KONFIGURATION
-// ══════════════════════════════════════
-const CLOUD_NAME     = 'dwiwry3ni';
-const UPLOAD_PRESET  = 'biancas_galerie';
-const SUPABASE_URL   = 'https://bhcmgcchdhckwpsjsidy.supabase.co';
-const SUPABASE_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoY21nY2NoZGhja3dwc2pzaWR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMzQwMTgsImV4cCI6MjA4OTYxMDAxOH0.FoGpiZCpSoSoJy_N5ZyGLU4P7_am9Q5MjihK95Auiao';
-const UPLOAD_URL     = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+// ── CONFIG ──
+const CLOUD_NAME    = 'dwiwry3ni';
+const UPLOAD_PRESET = 'biancas_galerie';
+const SUPABASE_URL  = 'https://bhcmgcchdhckwpsjsidy.supabase.co';
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoY21nY2NoZGhja3dwc2pzaWR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMzQwMTgsImV4cCI6MjA4OTYxMDAxOH0.FoGpiZCpSoSoJy_N5ZyGLU4P7_am9Q5MjihK95Auiao';
+const UPLOAD_URL    = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
+// ── DB ──
 const DB = {
-  headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },
-
-  async getAll() {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/photos?order=created_at.desc`, { headers: this.headers });
-    return r.ok ? r.json() : [];
-  },
-  async insert(photo) {
-    await fetch(`${SUPABASE_URL}/rest/v1/photos`, {
-      method: 'POST', headers: { ...this.headers, 'Prefer': 'return=minimal' },
-      body: JSON.stringify(photo)
-    });
-  },
-  async update(id, fields) {
-    await fetch(`${SUPABASE_URL}/rest/v1/photos?id=eq.${encodeURIComponent(id)}`, {
-      method: 'PATCH', headers: { ...this.headers, 'Prefer': 'return=minimal' },
-      body: JSON.stringify(fields)
-    });
-  },
-  async delete(id) {
-    await fetch(`${SUPABASE_URL}/rest/v1/photos?id=eq.${encodeURIComponent(id)}`, {
-      method: 'DELETE', headers: this.headers
-    });
-  },
-  async deleteAll() {
-    await fetch(`${SUPABASE_URL}/rest/v1/photos?id=neq.___`, {
-      method: 'DELETE', headers: this.headers
-    });
-  }
+  h: { 'Content-Type':'application/json', 'apikey':SUPABASE_KEY, 'Authorization':'Bearer '+SUPABASE_KEY },
+  async getAll(){ const r=await fetch(`${SUPABASE_URL}/rest/v1/photos?order=created_at.desc`,{headers:this.h}); return r.ok?r.json():[]; },
+  async insert(p){ await fetch(`${SUPABASE_URL}/rest/v1/photos`,{method:'POST',headers:{...this.h,'Prefer':'return=minimal'},body:JSON.stringify(p)}); },
+  async update(id,f){ await fetch(`${SUPABASE_URL}/rest/v1/photos?id=eq.${encodeURIComponent(id)}`,{method:'PATCH',headers:{...this.h,'Prefer':'return=minimal'},body:JSON.stringify(f)}); },
+  async deleteAll(){ await fetch(`${SUPABASE_URL}/rest/v1/photos?id=neq.___`,{method:'DELETE',headers:this.h}); }
 };
 
-// ══════════════════════════════════════
-// SUPABASE AUTH
-// ══════════════════════════════════════
+// ── AUTH ──
 let authToken = null;
 
-async function doLogin() {
-  const email    = document.getElementById('pw-email').value.trim();
-  const password = document.getElementById('pw-pass').value;
-  const btn      = document.getElementById('login-btn');
-  const error    = document.getElementById('pw-error');
-  const loading  = document.getElementById('pw-loading');
-
-  if (!email || !password) return;
-
-  btn.disabled = true;
-  error.style.display = 'none';
-  loading.style.display = 'block';
-
-  try {
-    const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
-      body: JSON.stringify({ email, password })
-    });
-    const data = await res.json();
-
-    if (data.access_token) {
-      authToken = data.access_token;
-      // Update DB headers with user token for RLS
-      DB.headers['Authorization'] = 'Bearer ' + authToken;
-      sessionStorage.setItem('galerie_token', authToken);
-
-      loading.style.display = 'none';
+async function doLogin(){
+  const email=document.getElementById('pw-email').value.trim();
+  const pass=document.getElementById('pw-pass').value;
+  const btn=document.getElementById('login-btn');
+  const err=document.getElementById('pw-error');
+  const load=document.getElementById('pw-loading');
+  if(!email||!pass)return;
+  btn.disabled=true; err.style.display='none'; load.style.display='block';
+  try{
+    const res=await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY},body:JSON.stringify({email,password:pass})});
+    const data=await res.json();
+    if(data.access_token){
+      authToken=data.access_token;
+      DB.h['Authorization']='Bearer '+authToken;
+      sessionStorage.setItem('galerie_token',authToken);
+      load.style.display='none';
       document.getElementById('pw-screen').classList.add('hidden');
       document.getElementById('main-content').classList.add('visible');
       init();
-    } else {
-      throw new Error('Login fehlgeschlagen');
-    }
-  } catch(e) {
-    loading.style.display = 'none';
-    error.style.display = 'block';
-    btn.disabled = false;
-    document.getElementById('pw-pass').value = '';
-    document.getElementById('pw-pass').focus();
+    } else { throw new Error(); }
+  } catch(e){
+    load.style.display='none'; err.style.display='block'; btn.disabled=false;
+    document.getElementById('pw-pass').value=''; document.getElementById('pw-pass').focus();
   }
 }
 
-async function doLogout() {
-  if (!confirm('Wirklich abmelden?')) return;
-  try {
-    await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + authToken }
-    });
-  } catch(e) {}
-  authToken = null;
-  sessionStorage.removeItem('galerie_token');
+async function doLogout(){
+  if(!confirm('Wirklich abmelden?'))return;
+  try{ await fetch(`${SUPABASE_URL}/auth/v1/logout`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+authToken}}); }catch(e){}
+  authToken=null; sessionStorage.removeItem('galerie_token');
   document.getElementById('main-content').classList.remove('visible');
   document.getElementById('pw-screen').classList.remove('hidden');
-  document.getElementById('pw-email').value = '';
-  document.getElementById('pw-pass').value = '';
-  document.getElementById('login-btn').disabled = false;
-  photos = [];
+  document.getElementById('pw-email').value='';
+  document.getElementById('pw-pass').value='';
+  document.getElementById('login-btn').disabled=false;
+  photos=[];
 }
 
-// Beim Laden: gespeichertes Token prüfen
-const savedToken = sessionStorage.getItem('galerie_token');
-if (savedToken) {
-  authToken = savedToken;
-  DB.headers['Authorization'] = 'Bearer ' + authToken;
+const savedToken=sessionStorage.getItem('galerie_token');
+if(savedToken){
+  authToken=savedToken; DB.h['Authorization']='Bearer '+savedToken;
   document.getElementById('pw-screen').classList.add('hidden');
   document.getElementById('main-content').classList.add('visible');
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded',init);
 } else {
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('pw-email').focus();
-  });
+  document.addEventListener('DOMContentLoaded',()=>document.getElementById('pw-email').focus());
 }
 
-// ══════════════════════════════════════
-// STATE
-// ══════════════════════════════════════
-let photos = [], currentFilter = 'all', lbIndex = 0;
+// ── STATE ──
+let photos=[], currentFilter='all', lbIndex=0;
 
-async function init() {
-  setSyncStatus('&#9729; Lade Fotos...');
-  try {
-    const data = await DB.getAll();
-    photos = data.map(r => ({
-      id: r.id, url: r.url, thumbUrl: r.thumb_url, name: r.name,
-      size: r.size, status: r.status, publicId: r.public_id, uploading: false
-    }));
-    setSyncStatus('&#10003; ' + photos.length + ' Fotos geladen');
-    setTimeout(() => setSyncStatus(''), 3000);
-  } catch(e) {
-    setSyncStatus('&#10060; Fehler beim Laden');
-    console.error(e);
-  }
+async function init(){
+  setSyncStatus('Lade Fotos...');
+  try{
+    const data=await DB.getAll();
+    photos=data.map(r=>({id:r.id,url:r.url,thumbUrl:r.thumb_url,name:r.name,size:r.size,status:r.status,uploading:false}));
+    setSyncStatus('');
+  } catch(e){ setSyncStatus('Fehler beim Laden'); }
   renderGallery(); updateStats();
 }
 
-function setSyncStatus(msg) {
-  document.getElementById('sync-status').innerHTML = msg;
-}
+function setSyncStatus(msg){ document.getElementById('sync-status').textContent=msg; }
 
-// ══════════════════════════════════════
-// DRAG & DROP
-// ══════════════════════════════════════
-document.body.addEventListener('dragover', e => { e.preventDefault(); document.getElementById('upload-zone').style.borderColor='#3a7a3a'; });
-document.body.addEventListener('dragleave', () => { document.getElementById('upload-zone').style.borderColor='#bbb'; });
-document.body.addEventListener('drop', e => {
-  e.preventDefault(); document.getElementById('upload-zone').style.borderColor='#bbb';
-  const f = [...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));
-  if(f.length) uploadFromFiles(f);
-});
-function uploadPhotos(e) { uploadFromFiles([...e.target.files]); e.target.value=''; }
+// ── DRAG & DROP ──
+document.body.addEventListener('dragover',e=>{e.preventDefault();document.getElementById('upload-zone').style.borderColor='#333'});
+document.body.addEventListener('dragleave',()=>{ document.getElementById('upload-zone').style.borderColor='#bbb'});
+document.body.addEventListener('drop',e=>{e.preventDefault();document.getElementById('upload-zone').style.borderColor='#bbb';const f=[...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));if(f.length)uploadFromFiles(f)});
+function uploadPhotos(e){uploadFromFiles([...e.target.files]);e.target.value='';}
 
-// ══════════════════════════════════════
-// UPLOAD
-// ══════════════════════════════════════
-async function uploadFromFiles(files) {
-  const zone  = document.getElementById('upload-zone');
-  const prog  = document.getElementById('loading-bar');
-  const bar   = document.getElementById('upl-bar');
-  const stat  = document.getElementById('upl-status');
+// ── UPLOAD ──
+async function uploadFromFiles(files){
+  const zone=document.getElementById('upload-zone');
+  const prog=document.getElementById('loading-bar');
+  const bar=document.getElementById('upl-bar');
+  const stat=document.getElementById('upl-status');
+  zone.classList.add('uploading'); zone.textContent='Wird hochgeladen...'; prog.style.display='block';
 
-  zone.classList.add('uploading');
-  zone.textContent = '⏳ Wird hochgeladen...';
-  prog.style.display = 'block';
-
-  for (let i=0; i<files.length; i++) {
-    const file = files[i];
-    stat.textContent = `${i+1} / ${files.length} — ${file.name}`;
-    bar.style.width = Math.round((i/files.length)*100)+'%';
-
-    // Local preview while uploading
-    const reader = new FileReader();
-    const previewSrc = await new Promise(res => { reader.onload = e => res(e.target.result); reader.readAsDataURL(file); });
-    const ph = { id:'ph_'+Date.now()+i, url:previewSrc, thumbUrl:previewSrc, name:file.name, size:file.size, status:'unrated', uploading:true };
-    photos.unshift(ph);
-    renderGallery(); updateStats();
-
-    try {
-      const fd = new FormData();
-      fd.append('file', file);
-      fd.append('upload_preset', UPLOAD_PRESET);
-      fd.append('folder', 'biancas_galerie');
-
-      const res  = await fetch(UPLOAD_URL, { method:'POST', body:fd });
-      const data = await res.json();
-
-      if (data.secure_url) {
-        const record = {
-          id: data.public_id,
-          url: data.secure_url,
-          thumb_url: data.secure_url.replace('/upload/','/upload/w_600,c_limit,q_auto,f_auto/'),
-          name: file.name,
-          size: file.size,
-          status: 'unrated',
-          public_id: data.public_id
-        };
-        await DB.insert(record);
-        const idx = photos.findIndex(p=>p.id===ph.id);
-        if(idx!==-1) photos[idx] = { ...record, thumbUrl:record.thumb_url, uploading:false };
-      } else {
-        photos = photos.filter(p=>p.id!==ph.id);
-        alert('Fehler beim Hochladen: ' + file.name);
-      }
-    } catch(err) {
-      photos = photos.filter(p=>p.id!==ph.id);
-      console.error(err);
-    }
-
+  for(let i=0;i<files.length;i++){
+    const file=files[i];
+    stat.textContent=`${i+1} / ${files.length} — ${file.name}`;
+    bar.style.width=Math.round((i/files.length)*100)+'%';
+    const reader=new FileReader();
+    const preview=await new Promise(res=>{reader.onload=e=>res(e.target.result);reader.readAsDataURL(file)});
+    const ph={id:'ph_'+Date.now()+i,url:preview,thumbUrl:preview,name:file.name,size:file.size,status:'unrated',uploading:true};
+    photos.unshift(ph); renderGallery(); updateStats();
+    try{
+      const fd=new FormData(); fd.append('file',file); fd.append('upload_preset',UPLOAD_PRESET); fd.append('folder','biancas_galerie');
+      const res=await fetch(UPLOAD_URL,{method:'POST',body:fd});
+      const data=await res.json();
+      if(data.secure_url){
+        const rec={id:data.public_id,url:data.secure_url,thumb_url:data.secure_url.replace('/upload/','/upload/w_600,c_limit,q_auto,f_auto/'),name:file.name,size:file.size,status:'unrated',public_id:data.public_id};
+        await DB.insert(rec);
+        const idx=photos.findIndex(p=>p.id===ph.id);
+        if(idx!==-1) photos[idx]={...rec,thumbUrl:rec.thumb_url,uploading:false};
+      } else { photos=photos.filter(p=>p.id!==ph.id); alert('Fehler: '+file.name); }
+    } catch(e){ photos=photos.filter(p=>p.id!==ph.id); }
     renderGallery(); updateStats();
   }
-
-  bar.style.width='100%';
-  stat.textContent='Fertig!';
-  setTimeout(()=>{ prog.style.display='none'; bar.style.width='0%'; }, 1500);
-  zone.classList.remove('uploading');
-  zone.textContent='☁ Fotos hochladen (auf allen Geräten sichtbar)';
+  bar.style.width='100%'; stat.textContent='Fertig!';
+  setTimeout(()=>{prog.style.display='none';bar.style.width='0%';},1500);
+  zone.classList.remove('uploading'); zone.textContent='☁ Fotos hochladen';
 }
 
-// ══════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════
-function renderGallery() {
-  const grid  = document.getElementById('grid');
-  const empty = document.getElementById('empty-state');
-  const bt    = document.getElementById('bottom-toolbar');
-  let filtered = getFiltered();
-
-  if (photos.length===0) { grid.innerHTML=''; empty.style.display='block'; bt.style.display='none'; return; }
-  empty.style.display='none'; bt.style.display='flex';
-  grid.innerHTML='';
-
-  filtered.forEach(photo => {
-    const ri = photos.indexOf(photo);
-    const card = document.createElement('div');
-    card.className = 'photo-card' + (photo.uploading?' uploading-card':'') + (photo.status!=='unrated'?` selected-${photo.status}`:'');
-    card.innerHTML = `
+// ── RENDER ──
+function renderGallery(){
+  const grid=document.getElementById('grid');
+  const empty=document.getElementById('empty-state');
+  const bt=document.getElementById('bottom-toolbar');
+  if(photos.length===0){grid.innerHTML='';empty.style.display='block';bt.style.display='none';return;}
+  let filtered=getFiltered();
+  empty.style.display='none'; bt.style.display='flex'; grid.innerHTML='';
+  filtered.forEach(photo=>{
+    const ri=photos.indexOf(photo);
+    const card=document.createElement('div');
+    card.className='photo-card'+(photo.uploading?' uploading-card':'')+(photo.status==='fav'?' selected-fav':photo.status==='reject'?' selected-reject':'');
+    card.innerHTML=`
       <div class="img-wrap">
         <img src="${photo.thumbUrl||photo.url}" alt="${photo.name}" loading="lazy">
-        ${photo.uploading?'<div class="upload-spinner">&#9203; Wird hochgeladen...</div>':''}
+        ${photo.uploading?'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7);font-size:12px;color:#555">wird hochgeladen...</div>':''}
         <div class="overlay"></div>
         <div class="actions">
-          <button class="action-btn btn-fav"    onclick="markPhoto(${ri},'fav');event.stopPropagation()">&#9733;</button>
-          <button class="action-btn btn-pick"   onclick="markPhoto(${ri},'pick');event.stopPropagation()">&#10003;</button>
-          <button class="action-btn btn-reject" onclick="markPhoto(${ri},'reject');event.stopPropagation()">&#10005;</button>
-          <button class="action-btn btn-dl"     onclick="downloadSingle(${ri});event.stopPropagation()">&#8659;</button>
+          <button class="action-btn${photo.status==='fav'?' active-fav':''}" onclick="markPhoto(${ri},'fav');event.stopPropagation()" title="Favorit">&#9733;</button>
+          <button class="action-btn${photo.status==='reject'?' active-reject':''}" onclick="markPhoto(${ri},'reject');event.stopPropagation()" title="Ablehnen">&#10005;</button>
+          <button class="action-btn" onclick="downloadSingle(${ri});event.stopPropagation()" title="Laden">&#8659;</button>
         </div>
-        ${photo.status!=='unrated'?`<div class="status-badge badge-${photo.status}">${photo.status==='fav'?'&#9733;':photo.status==='pick'?'&#10003; Pick':'&#10005;'}</div>`:''}
+        ${photo.status!=='unrated'?`<div class="status-badge badge-${photo.status}">${photo.status==='fav'?'&#9733; Fav':'&#10005;'}</div>`:''}
         <div class="num">${ri+1}</div>
       </div>
       <div class="info">
         <div class="filename">${photo.name}</div>
-        <div class="meta">${photo.size?(photo.size/1024).toFixed(0)+' KB &middot; ':''} &#9729; Cloud</div>
+        <div class="meta">${photo.size?(photo.size/1024).toFixed(0)+' KB':''}</div>
       </div>`;
     if(!photo.uploading) card.addEventListener('click',()=>openLightbox(ri));
     grid.appendChild(card);
@@ -652,8 +525,8 @@ function renderGallery() {
   updateSelectionBadge();
 }
 
-function getFiltered() {
-  let r = [...photos];
+function getFiltered(){
+  let r=[...photos];
   if(currentFilter!=='all') r=r.filter(p=>p.status===currentFilter);
   const s=document.getElementById('sort-select').value;
   if(s==='name') r.sort((a,b)=>a.name.localeCompare(b.name));
@@ -661,57 +534,54 @@ function getFiltered() {
   return r;
 }
 
-async function markPhoto(idx, status) {
-  if(!photos[idx]||photos[idx].uploading) return;
-  const newStatus = photos[idx].status===status?'unrated':status;
-  photos[idx].status = newStatus;
+async function markPhoto(idx,status){
+  if(!photos[idx]||photos[idx].uploading)return;
+  const newStatus=photos[idx].status===status?'unrated':status;
+  photos[idx].status=newStatus;
   renderGallery(); updateStats();
-  await DB.update(photos[idx].id, { status: newStatus });
+  await DB.update(photos[idx].id,{status:newStatus});
 }
 
-function updateStats() {
-  document.getElementById('stat-total').textContent   = photos.filter(p=>!p.uploading).length;
-  document.getElementById('stat-picks').textContent   = photos.filter(p=>p.status==='pick').length;
-  document.getElementById('stat-favs').textContent    = photos.filter(p=>p.status==='fav').length;
-  document.getElementById('stat-rejects').textContent = photos.filter(p=>p.status==='reject').length;
-  document.getElementById('stat-unrated').textContent = photos.filter(p=>p.status==='unrated'&&!p.uploading).length;
+function updateStats(){
+  const real=photos.filter(p=>!p.uploading);
+  document.getElementById('stat-total').textContent=real.length;
+  document.getElementById('stat-favs').textContent=real.filter(p=>p.status==='fav').length;
+  document.getElementById('stat-rejects').textContent=real.filter(p=>p.status==='reject').length;
+  document.getElementById('stat-unrated').textContent=real.filter(p=>p.status==='unrated').length;
 }
-function updateSelectionBadge() {
-  const n=photos.filter(p=>p.status==='pick'||p.status==='fav').length;
-  document.getElementById('selection-count').textContent=n+' ausgewählt';
+function updateSelectionBadge(){
+  const n=photos.filter(p=>p.status==='fav').length;
+  document.getElementById('selection-count').textContent=n+' Favoriten';
 }
-function setFilter(f,el) {
+function setFilter(f,el){
   currentFilter=f;
   document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
   if(el)el.classList.add('active');
   renderGallery();
 }
-function setCols(n) {
+function setCols(n){
   const grid=document.getElementById('grid');
   grid.className=n===2?'cols-2':n===3?'cols-3':'';
   document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
-  const btn=document.getElementById('btn-'+n);
-  if(btn)btn.classList.add('active');
+  const btn=document.getElementById('btn-'+n); if(btn)btn.classList.add('active');
   document.getElementById('btn-list').classList.remove('active');
 }
-function setView() {
+function setView(){
   document.getElementById('grid').className='list-view';
   document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('btn-list').classList.add('active');
   renderGallery();
 }
 
-// ══════════════════════════════════════
-// LIGHTBOX
-// ══════════════════════════════════════
-function openLightbox(idx){lbIndex=idx;document.getElementById('lightbox').classList.add('open');updateLightbox()}
+// ── LIGHTBOX ──
+function openLightbox(idx){lbIndex=idx;document.getElementById('lightbox').classList.add('open');updateLightbox();}
 function updateLightbox(){
   const p=photos[lbIndex];if(!p)return;
   document.getElementById('lb-img').src=p.url;
-  document.getElementById('lb-name').textContent=`${lbIndex+1} / ${photos.length}  —  ${p.name}`;
+  document.getElementById('lb-name').textContent=`${lbIndex+1} / ${photos.length} — ${p.name}`;
 }
-function lbNav(dir){lbIndex=(lbIndex+dir+photos.length)%photos.length;updateLightbox()}
-function closeLightbox(e){if(!e||e.target===document.getElementById('lightbox'))document.getElementById('lightbox').classList.remove('open')}
+function lbNav(dir){lbIndex=(lbIndex+dir+photos.length)%photos.length;updateLightbox();}
+function closeLightbox(e){if(!e||e.target===document.getElementById('lightbox'))document.getElementById('lightbox').classList.remove('open');}
 
 document.addEventListener('keydown',e=>{
   if(!document.getElementById('lightbox').classList.contains('open'))return;
@@ -719,42 +589,34 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')lbNav(1);
   if(e.key==='Escape')closeLightbox();
   if(e.key==='f')markPhoto(lbIndex,'fav');
-  if(e.key==='p')markPhoto(lbIndex,'pick');
   if(e.key==='r')markPhoto(lbIndex,'reject');
   if(e.key==='d')downloadSingle(lbIndex);
 });
 
-// ══════════════════════════════════════
-// DOWNLOAD
-// ══════════════════════════════════════
-function downloadSingle(idx) {
+// ── DOWNLOAD ──
+function downloadSingle(idx){
   const p=photos[idx];if(!p||!p.url)return;
-  fetch(p.url).then(r=>r.blob()).then(blob=>{
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=p.name;a.click();
-  });
+  fetch(p.url).then(r=>r.blob()).then(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=p.name;a.click()});
 }
 
-async function downloadZip(type) {
+async function downloadZip(type){
   let list=photos.filter(p=>!p.uploading);
-  if(type==='pick') list=list.filter(p=>p.status==='pick');
-  else if(type==='fav') list=list.filter(p=>p.status==='fav');
-  if(list.length===0){alert('Keine Fotos in dieser Kategorie.');return}
-
+  if(type==='fav') list=list.filter(p=>p.status==='fav');
+  if(list.length===0){alert('Keine Fotos in dieser Kategorie.');return;}
   const prog=document.getElementById('dl-progress'),bar=document.getElementById('dl-bar'),status=document.getElementById('dl-status');
-  prog.style.display='block';bar.style.width='0%';
-
+  prog.style.display='block'; bar.style.width='0%';
   const zip=new JSZip();
   for(let i=0;i<list.length;i++){
     const p=list[i];
     status.textContent=`${i+1} / ${list.length} — ${p.name}`;
-    bar.style.width=Math.round((i/list.length)*90)+'%';
+    bar.style.width=Math.round((i/list.length)*88)+'%';
     try{const res=await fetch(p.url);zip.file(p.name,await res.arrayBuffer());}catch(e){console.error(e);}
     await new Promise(r=>setTimeout(r,0));
   }
-  status.textContent='ZIP wird erstellt...';bar.style.width='95%';
+  status.textContent='ZIP wird erstellt...'; bar.style.width='95%';
   const blob=await zip.generateAsync({type:'blob'});
-  bar.style.width='100%';status.textContent='Fertig!';
-  const label=type==='pick'?'picks':type==='fav'?'favoriten':'alle-fotos';
+  bar.style.width='100%'; status.textContent='Fertig!';
+  const label=type==='fav'?'favoriten':'alle-fotos';
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`biancas-galerie-${label}.zip`;a.click();
   setTimeout(()=>{prog.style.display='none';bar.style.width='0%';},2000);
 }
@@ -766,29 +628,8 @@ function exportCSV(){
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='galerie.csv';a.click();
 }
 
-// ══════════════════════════════════════
-// BULK ACTIONS
-// ══════════════════════════════════════
-async function selectAll(){
-  const toUpdate=photos.filter(p=>!p.uploading&&p.status!=='pick');
-  photos.filter(p=>!p.uploading).forEach(p=>p.status='pick');
-  renderGallery();updateStats();
-  for(const p of toUpdate) await DB.update(p.id,{status:'pick'});
-}
-
-async function clearAll(){
-  photos.filter(p=>!p.uploading).forEach(p=>p.status='unrated');
-  renderGallery();updateStats();
-  for(const p of photos.filter(p=>!p.uploading)) await DB.update(p.id,{status:'unrated'});
-}
-
-async function removeAll(){
-  if(!confirm('Alle Fotos aus der Galerie entfernen?\n(Fotos bleiben in Cloudinary gespeichert)'))return;
-  photos=[];renderGallery();updateStats();
-  await DB.deleteAll();
-  setSyncStatus('&#10003; Galerie geleert');
-  setTimeout(()=>setSyncStatus(''),3000);
-}
+async function clearAll(){photos.filter(p=>!p.uploading).forEach(p=>p.status='unrated');renderGallery();updateStats();for(const p of photos.filter(p=>!p.uploading))await DB.update(p.id,{status:'unrated'});}
+async function removeAll(){if(!confirm('Alle Fotos entfernen?'))return;photos=[];renderGallery();updateStats();await DB.deleteAll();}
 </script>
 </body>
 </html>
