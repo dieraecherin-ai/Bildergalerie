@@ -254,7 +254,8 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
   <a class="nav-link" onclick="setFilter('unrated',this)">&#9675; Unbewertet</a>
   <div class="nav-right">
     <span id="selection-count" style="font-size:12px;color:#aaa;white-space:nowrap">0 Favoriten</span>
-    <button class="nav-btn dark" onclick="downloadZip('fav')">&#8659; Favoriten als ZIP</button>
+    <button class="nav-btn dark" onclick="downloadZip('fav')">&#8659; Favoriten ZIP</button>
+    <button class="nav-btn" onclick="downloadZip('all')">&#8659; Alle ZIP</button>
     <button class="nav-btn primary admin-only" onclick="document.getElementById('upload-input').click()">+ Fotos hochladen</button>
     <button id="logout-btn" onclick="doLogout()">Abmelden</button>
     <input type="file" id="upload-input" accept="image/*" multiple onchange="uploadPhotos(event)">
