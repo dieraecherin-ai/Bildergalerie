@@ -84,7 +84,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 .photo-card{break-inside:avoid;margin-bottom:10px;background:#fff;border:1px solid #e8e8e8;border-radius:2px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative;display:block}
 .photo-card:hover{border-color:#aaa;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .photo-card.selected-fav{border:2px solid #333}
-.photo-card.selected-reject{border:2px solid #bbb;opacity:.5}
 .photo-card.uploading-card{opacity:.55}
 
 .img-wrap{position:relative;overflow:hidden;background:#f0f0f0;line-height:0}
@@ -252,7 +251,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 <div id="nav-bar">
   <a class="nav-link active" onclick="setFilter('all',this)">Alle Fotos</a>
   <a class="nav-link" onclick="setFilter('fav',this)">&#9733; Favoriten</a>
-  <a class="nav-link" onclick="setFilter('reject',this)">&#10005; Abgelehnt</a>
   <a class="nav-link" onclick="setFilter('unrated',this)">&#9675; Unbewertet</a>
   <div class="nav-right">
     <span id="selection-count" style="font-size:12px;color:#aaa;white-space:nowrap">0 Favoriten</span>
@@ -320,7 +318,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
       <div class="side-title">&#220;bersicht</div>
       <div class="stat-row"><span>Gesamt</span><span class="stat-num" id="stat-total">0</span></div>
       <div class="stat-row"><span>&#9733; Favoriten</span><span class="stat-num" id="stat-favs">0</span></div>
-      <div class="stat-row"><span>&#10005; Abgelehnt</span><span class="stat-num" id="stat-rejects">0</span></div>
       <div class="stat-row"><span>&#9675; Unbewertet</span><span class="stat-num" id="stat-unrated">0</span></div>
     </div>
 
@@ -328,7 +325,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
       <div class="side-title">Tastenkürzel</div>
       <div style="font-size:11px;color:#aaa;line-height:1.9">
         <b>F</b> — Favorit<br>
-        <b>R</b> — Ablehnen<br>
         <b>D</b> — Herunterladen<br>
         <b>&#8592; &#8594;</b> — navigieren<br>
         <b>Esc</b> — schließen
@@ -338,7 +334,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
     <div class="side-section">
       <div class="side-title">Aktionen</div>
       <a class="side-link admin-only" onclick="clearAll()">&#8594; Bewertungen löschen</a>
-      <a class="side-link" onclick="exportCSV()">&#8594; CSV exportieren</a>
       <a class="side-link admin-only" onclick="removeAll()">&#8594; Alle entfernen</a>
     </div>
   </div>
@@ -356,7 +351,6 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
       <div id="lb-name"></div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="lb-btn fav"    onclick="markPhoto(lbIndex,'fav')">&#9733; Favorit</button>
-        <button class="lb-btn reject" onclick="markPhoto(lbIndex,'reject')">&#10005; Ablehnen</button>
         <button class="lb-btn dl"     onclick="downloadSingle(lbIndex)">&#8659; Laden</button>
       </div>
       <button id="lb-close" onclick="closeLightbox()">&#215;</button>
@@ -517,7 +511,7 @@ function renderGallery(){
   filtered.forEach(photo=>{
     const ri=photos.indexOf(photo);
     const card=document.createElement('div');
-    card.className='photo-card'+(photo.uploading?' uploading-card':'')+(photo.status==='fav'?' selected-fav':photo.status==='reject'?' selected-reject':'');
+    card.className='photo-card'+(photo.uploading?' uploading-card':'')+(photo.status==='fav'?' selected-fav':'');
     card.innerHTML=`
       <div class="img-wrap">
         <img src="${photo.thumbUrl||photo.url}" alt="${photo.name}" loading="lazy">
@@ -525,10 +519,9 @@ function renderGallery(){
         <div class="overlay"></div>
         <div class="actions">
           <button class="action-btn${photo.status==='fav'?' active-fav':''}" onclick="markPhoto(${ri},'fav');event.stopPropagation()" title="Favorit">&#9733;</button>
-          <button class="action-btn${photo.status==='reject'?' active-reject':''}" onclick="markPhoto(${ri},'reject');event.stopPropagation()" title="Ablehnen">&#10005;</button>
           <button class="action-btn" onclick="downloadSingle(${ri});event.stopPropagation()" title="Laden">&#8659;</button>
         </div>
-        ${photo.status!=='unrated'?`<div class="status-badge badge-${photo.status}">${photo.status==='fav'?'&#9733; Fav':'&#10005;'}</div>`:''}
+        ${photo.status==='fav'?'<div class="status-badge badge-fav">&#9733; Fav</div>':''}
         <div class="num">${ri+1}</div>
       </div>
       <div class="info">
@@ -562,7 +555,6 @@ function updateStats(){
   const real=photos.filter(p=>!p.uploading);
   document.getElementById('stat-total').textContent=real.length;
   document.getElementById('stat-favs').textContent=real.filter(p=>p.status==='fav').length;
-  document.getElementById('stat-rejects').textContent=real.filter(p=>p.status==='reject').length;
   document.getElementById('stat-unrated').textContent=real.filter(p=>p.status==='unrated').length;
 }
 function updateSelectionBadge(){
@@ -605,7 +597,6 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight')lbNav(1);
   if(e.key==='Escape')closeLightbox();
   if(e.key==='f')markPhoto(lbIndex,'fav');
-  if(e.key==='r')markPhoto(lbIndex,'reject');
   if(e.key==='d')downloadSingle(lbIndex);
 });
 
