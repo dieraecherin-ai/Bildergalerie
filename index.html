@@ -157,6 +157,78 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 #lb-close:hover{background:#eee}
 
 #site-footer{text-align:center;padding:20px;border-top:1px solid #ddd;font-size:11px;color:#aaa;margin-top:40px}
+
+/* Touch-Geräte: Aktionen immer anzeigen */
+@media (hover: none) {
+  .actions{opacity:1}
+  .overlay{opacity:1}
+  .photo-card .img-wrap img{transform:none !important}
+}
+@media (max-width: 700px) {
+  /* Header */
+  #site-header{padding:18px 16px 14px}
+  #site-header h1{font-size:24px}
+
+  /* Nav: Filter-Links verstecken, nur Icons zeigen */
+  #nav-bar{padding:0 10px;flex-wrap:wrap}
+  .nav-link{padding:8px 10px;font-size:12px}
+  .nav-right{width:100%;padding:6px 0;gap:6px;border-top:1px solid #eee;justify-content:flex-end}
+  .nav-btn{font-size:11px;padding:5px 10px}
+  #logout-btn{font-size:11px;padding:4px 8px}
+
+  /* Layout: Sidebar unter den Content */
+  #layout{flex-direction:column;padding:14px 12px;gap:0}
+
+  /* Sidebar: horizontal als Statistik-Leiste oben */
+  #sidebar{width:100%;min-width:unset;order:-1;margin-bottom:16px}
+  .side-section{margin-bottom:14px}
+
+  /* Download-Box kompakter */
+  .download-box{padding:10px}
+  .dl-btn{padding:9px;font-size:13px}
+
+  /* Stats als horizontale Zeile */
+  #sidebar .side-section:nth-child(2){background:#f9f9f9;border:1px solid #eee;border-radius:3px;padding:10px 12px}
+  .stat-row{padding:3px 0;font-size:12px}
+
+  /* Tastenkürzel auf Handy ausblenden */
+  #sidebar .side-section:nth-child(3){display:none}
+
+  /* Toolbar kompakter */
+  #toolbar{gap:6px;margin-bottom:12px;padding-bottom:10px}
+  #upload-zone{font-size:11px;padding:6px 10px;width:100%}
+  .sep{display:none}
+  select#sort-select{font-size:12px}
+
+  /* Masonry: 2 Spalten auf Handy */
+  #grid{columns:2;column-gap:8px}
+  #grid.cols-2{columns:2}
+  #grid.cols-3{columns:2}
+  #grid.cols-4{columns:2}
+  .photo-card{margin-bottom:8px}
+
+  /* Foto-Aktionen immer sichtbar auf Touch */
+  .actions{opacity:1 !important}
+  .action-btn{width:28px;height:28px;font-size:12px}
+
+  /* Spalten-Buttons ausblenden (immer 2 auf Handy) */
+  #btn-2,#btn-3,#btn-4,#btn-list{display:none}
+  label[style*="Spalten"]{display:none}
+
+  /* Lightbox auf Handy */
+  #lb-bar{padding:8px 10px;gap:5px}
+  .lb-btn{padding:5px 8px;font-size:11px}
+  #lb-name{display:none}
+  #lb-img{max-width:100vw;max-height:75vh}
+
+  /* Bottom toolbar */
+  #bottom-toolbar{gap:6px}
+  .tb-btn{font-size:11px;padding:5px 10px}
+
+  /* Login-Box */
+  #pw-box{padding:28px 20px}
+  #pw-box h2{font-size:22px}
+}
 </style>
 </head>
 <body>
