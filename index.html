@@ -9,6 +9,8 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Source Sans 3',Arial,sans-serif;background:#fff;color:#333;font-size:14px;line-height:1.6}
+
+/* PASSWORT */
 #pw-screen{position:fixed;inset:0;background:#faf7f5;display:flex;align-items:center;justify-content:center;z-index:9999}
 #pw-box{background:#fff;border:1px solid #ddd;border-radius:4px;padding:40px 36px;width:340px;max-width:95vw;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
 #pw-box h2{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:600;color:#222;margin-bottom:6px}
@@ -21,6 +23,8 @@ body{font-family:'Source Sans 3',Arial,sans-serif;background:#fff;color:#333;fon
 #pw-screen.hidden{display:none}
 #main-content{display:none}
 #main-content.visible{display:block}
+
+/* HEADER */
 #site-header{background:#fff;border-bottom:1px solid #ddd;text-align:center;padding:28px 20px 18px}
 #site-header h1{font-family:'Lora',Georgia,serif;font-size:36px;font-weight:600;color:#222;letter-spacing:-.5px;margin-bottom:5px}
 #site-header .tagline{font-size:13px;color:#888;font-style:italic;font-family:'Lora',Georgia,serif}
@@ -35,6 +39,8 @@ body{font-family:'Source Sans 3',Arial,sans-serif;background:#fff;color:#333;fon
 .nav-btn.primary:hover{background:#333}
 .nav-btn.download{background:#2a6a2a;color:#fff;border-color:#2a6a2a}
 .nav-btn.download:hover{background:#1e4e1e}
+
+/* LAYOUT */
 #layout{display:flex;max-width:1160px;margin:0 auto;padding:24px 16px;gap:32px;align-items:flex-start}
 #content{flex:1;min-width:0}
 #toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #eee}
@@ -46,15 +52,20 @@ body{font-family:'Source Sans 3',Arial,sans-serif;background:#fff;color:#333;fon
 select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;color:#555;background:#fff;cursor:pointer}
 .view-btn{width:28px;height:28px;border:1px solid #ddd;border-radius:3px;background:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .view-btn:hover,.view-btn.active{background:#eee;border-color:#aaa}
+
+/* LOADING */
+#loading-bar{display:none;margin-bottom:14px;padding:10px 14px;background:#f0f8f0;border:1px solid #b8ddb8;border-radius:3px;font-size:12px;color:#3a7a3a}
+#upl-bar-wrap{height:5px;background:#c8e8c8;border-radius:3px;margin-top:6px;overflow:hidden}
+#upl-bar{height:100%;background:#3a7a3a;width:0%;transition:width .2s}
+
+/* SYNC INDICATOR */
+#sync-status{font-size:11px;color:#aaa;padding:4px 0;margin-bottom:10px}
+
+/* EMPTY STATE */
 #empty-state{text-align:center;padding:60px 20px;color:#aaa;border:1px dashed #ddd;border-radius:4px}
 #empty-state .big-icon{font-size:48px;display:block;margin-bottom:14px}
 #empty-state p{font-size:15px;color:#bbb;margin-bottom:6px}
 #empty-state small{font-size:12px;color:#ccc}
-
-/* UPLOAD PROGRESS */
-#upload-progress-bar{display:none;margin-bottom:14px;padding:10px 14px;background:#f0f8f0;border:1px solid #b8ddb8;border-radius:3px;font-size:12px;color:#3a7a3a}
-#upl-bar-wrap{height:5px;background:#c8e8c8;border-radius:3px;margin-top:6px;overflow:hidden}
-#upl-bar{height:100%;background:#3a7a3a;width:0%;transition:width .2s}
 
 /* MASONRY */
 #grid{columns:4;column-gap:12px}
@@ -70,7 +81,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 .img-wrap{position:relative;overflow:hidden;background:#f5f5f5;line-height:0}
 .img-wrap img{width:100%;height:auto;display:block;transition:transform .35s}
 .photo-card:hover .img-wrap img{transform:scale(1.03)}
-.upload-spinner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7);font-size:12px;color:#3a7a3a;font-weight:600}
+.upload-spinner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.75);font-size:12px;color:#3a7a3a;font-weight:600}
 .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.4) 0%,transparent 50%);opacity:0;transition:opacity .2s}
 .photo-card:hover .overlay{opacity:1}
 .actions{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:7px;opacity:0;transition:opacity .2s}
@@ -95,6 +106,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 #grid.list-view .info{flex:1;border-top:none}
 #grid.list-view .actions{position:static;opacity:1;justify-content:flex-end;padding:0 10px 0 0}
 #grid.list-view .overlay{display:none}
+
 #bottom-toolbar{margin-top:4px;padding-top:12px;border-top:1px solid #eee;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .tb-btn{padding:5px 12px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;transition:all .15s}
 .tb-btn:hover{background:#f0f0f0}
@@ -112,7 +124,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 .side-link:hover{color:#111;text-decoration:underline}
 .download-box{background:#f0f8f0;border:1px solid #b8ddb8;border-radius:3px;padding:12px;margin-bottom:10px}
 .download-box p{font-size:11px;color:#4a7a4a;margin-bottom:8px;line-height:1.4}
-.dl-btn{width:100%;padding:7px 10px;border:1px solid #3a7a3a;border-radius:3px;background:#3a7a3a;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;margin-bottom:5px;text-align:center}
+.dl-btn{width:100%;padding:7px 10px;border:1px solid #3a7a3a;border-radius:3px;background:#3a7a3a;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;margin-bottom:5px;text-align:center;display:block}
 .dl-btn:hover{background:#2a5a2a}
 .dl-btn.secondary{background:#fff;color:#3a7a3a}
 .dl-btn.secondary:hover{background:#f0f8f0}
@@ -120,44 +132,46 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 #dl-bar-wrap{height:4px;background:#c8e8c8;border-radius:2px;margin-top:4px;overflow:hidden}
 #dl-bar{height:100%;background:#3a7a3a;width:0%;transition:width .2s}
 
-/* CLOUD INDICATOR */
-.cloud-badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:10px;background:#e8f0fe;color:#1a5ab8;font-weight:700;margin-left:4px}
-
 /* LIGHTBOX */
 #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center}
 #lightbox.open{display:flex}
 #lb-inner{background:#fff;border-radius:2px;max-width:94vw;max-height:94vh;overflow:hidden;display:flex;flex-direction:column}
 #lb-img-wrap{overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0a0a;flex:1;min-height:0}
 #lb-img{max-width:90vw;max-height:82vh;object-fit:contain;display:block}
-#lb-bar{padding:9px 14px;display:flex;align-items:center;gap:8px;border-top:1px solid #eee;background:#fafafa;flex-shrink:0}
+#lb-bar{padding:9px 14px;display:flex;align-items:center;gap:8px;border-top:1px solid #eee;background:#fafafa;flex-shrink:0;flex-wrap:wrap}
 #lb-name{font-size:12px;color:#666;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lb-btn{padding:5px 11px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:#555;white-space:nowrap}
 .lb-btn.fav{border-color:#c8a200;color:#9a7a00}.lb-btn.fav:hover{background:#fffae0}
 .lb-btn.pick{border-color:#3a7a3a;color:#3a7a3a}.lb-btn.pick:hover{background:#f0f8f0}
 .lb-btn.reject{border-color:#c0392b;color:#c0392b}.lb-btn.reject:hover{background:#fdf0ee}
 .lb-btn.dl{border-color:#3a7a3a;background:#3a7a3a;color:#fff}.lb-btn.dl:hover{background:#2a5a2a}
-.lb-nav-btn{width:30px;height:30px;border-radius:2px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.lb-nav-btn{width:30px;height:30px;border-radius:2px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}
 .lb-nav-btn:hover{background:#eee}
 #lb-close{width:26px;height:26px;border:1px solid #ddd;border-radius:2px;background:#fff;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
 #lb-close:hover{background:#eee}
+
 #site-footer{text-align:center;padding:20px;border-top:1px solid #ddd;font-size:11px;color:#aaa;margin-top:40px}
 </style>
 </head>
 <body>
 
+<!-- PASSWORT -->
 <div id="pw-screen">
   <div id="pw-box">
     <h2>Biancas Galerie</h2>
     <p>Bitte gib das Passwort ein, um die Galerie zu öffnen.</p>
     <input type="password" id="pw-input" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPassword()">
     <button onclick="checkPassword()">Öffnen</button>
-    <div id="pw-error">❌ Falsches Passwort – bitte versuche es erneut.</div>
+    <div id="pw-error">&#10060; Falsches Passwort – bitte versuche es erneut.</div>
   </div>
 </div>
 
+<!-- HAUPTINHALT -->
 <div id="main-content">
+
+<div id="site-header">
   <h1>Biancas Galerie</h1>
-  <div class="tagline">Fotos auswählen, sortieren und herunterladen <span class="cloud-badge">&#9729; Cloud</span></div>
+  <div class="tagline">Fotos auswählen, sortieren und herunterladen &nbsp;&#9729;&nbsp; Cloud</div>
 </div>
 
 <div id="nav-bar">
@@ -177,10 +191,10 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 <div id="layout">
   <div id="content">
     <div id="toolbar">
-      <div id="upload-zone" onclick="document.getElementById('upload-input').click()">&#9729; Fotos hochladen (werden in der Cloud gespeichert)</div>
+      <div id="upload-zone" onclick="document.getElementById('upload-input').click()">&#9729; Fotos hochladen (auf allen Geräten sichtbar)</div>
       <div class="sep"></div>
       <select id="sort-select" onchange="renderGallery()">
-        <option value="date">Reihenfolge</option>
+        <option value="date">Neueste zuerst</option>
         <option value="name">Name A–Z</option>
         <option value="fav">Favoriten zuerst</option>
       </select>
@@ -193,17 +207,19 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
       <button class="view-btn" id="btn-list" onclick="setView('list')">&#9776;</button>
     </div>
 
-    <div id="upload-progress-bar">
-      <span id="upl-status">Lade hoch...</span>
+    <div id="loading-bar">
+      <span id="upl-status">Wird hochgeladen...</span>
       <div id="upl-bar-wrap"><div id="upl-bar"></div></div>
     </div>
 
-    <div id="empty-state">
-      <span class="big-icon">&#9729;</span>
+    <div id="sync-status">&#9729; Verbinde mit Datenbank...</div>
+
+    <div id="empty-state" style="display:none">
+      <span class="big-icon">&#128247;</span>
       <p>Noch keine Fotos hochgeladen</p>
       <small>Fotos werden in der Cloud gespeichert – auf jedem Gerät sichtbar</small>
     </div>
-    <div id="grid" style="display:none"></div>
+    <div id="grid"></div>
 
     <div id="bottom-toolbar" style="display:none">
       <span style="font-size:12px;color:#888;margin-right:4px">Auswahl:</span>
@@ -267,7 +283,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
         <button class="lb-nav-btn" onclick="lbNav(1)">&#8250;</button>
       </div>
       <div id="lb-name">Foto</div>
-      <div style="display:flex;gap:6px">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="lb-btn fav"    onclick="markPhoto(lbIndex,'fav')">&#9733; Favorit</button>
         <button class="lb-btn pick"   onclick="markPhoto(lbIndex,'pick')">&#10003; Pick</button>
         <button class="lb-btn reject" onclick="markPhoto(lbIndex,'reject')">&#10005; Ablehnen</button>
@@ -279,16 +295,56 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 </div>
 
 <div id="site-footer">
-  Biancas Galerie &middot; Fotos werden sicher in der Cloud gespeichert (Cloudinary) &middot; auf allen Ger&auml;ten sichtbar
+  Biancas Galerie &middot; Fotos in der Cloud (Cloudinary + Supabase) &middot; auf allen Ger&auml;ten sichtbar
 </div>
 
 </div><!-- end main-content -->
 
 <script>
-// ── PASSWORT ──
-// Passwort hier ändern:
-const PASSWORT = ',BesteBilder,';
+// ══════════════════════════════════════
+// KONFIGURATION
+// ══════════════════════════════════════
+const PASSWORT       = 'bianca2024';
+const CLOUD_NAME     = 'dwiwry3ni';
+const UPLOAD_PRESET  = 'biancas_galerie';
+const SUPABASE_URL   = 'https://bhcmgcchdhckwpsjsidy.supabase.co';
+const SUPABASE_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoY21nY2NoZGhja3dwc2pzaWR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMzQwMTgsImV4cCI6MjA4OTYxMDAxOH0.FoGpiZCpSoSoJy_N5ZyGLU4P7_am9Q5MjihK95Auiao';
+const UPLOAD_URL     = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
+const DB = {
+  headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },
+
+  async getAll() {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/photos?order=created_at.desc`, { headers: this.headers });
+    return r.ok ? r.json() : [];
+  },
+  async insert(photo) {
+    await fetch(`${SUPABASE_URL}/rest/v1/photos`, {
+      method: 'POST', headers: { ...this.headers, 'Prefer': 'return=minimal' },
+      body: JSON.stringify(photo)
+    });
+  },
+  async update(id, fields) {
+    await fetch(`${SUPABASE_URL}/rest/v1/photos?id=eq.${encodeURIComponent(id)}`, {
+      method: 'PATCH', headers: { ...this.headers, 'Prefer': 'return=minimal' },
+      body: JSON.stringify(fields)
+    });
+  },
+  async delete(id) {
+    await fetch(`${SUPABASE_URL}/rest/v1/photos?id=eq.${encodeURIComponent(id)}`, {
+      method: 'DELETE', headers: this.headers
+    });
+  },
+  async deleteAll() {
+    await fetch(`${SUPABASE_URL}/rest/v1/photos?id=neq.___`, {
+      method: 'DELETE', headers: this.headers
+    });
+  }
+};
+
+// ══════════════════════════════════════
+// PASSWORT
+// ══════════════════════════════════════
 function checkPassword() {
   const input = document.getElementById('pw-input').value;
   const error = document.getElementById('pw-error');
@@ -297,142 +353,152 @@ function checkPassword() {
     document.getElementById('pw-screen').classList.add('hidden');
     document.getElementById('main-content').classList.add('visible');
     error.style.display = 'none';
+    init();
   } else {
     error.style.display = 'block';
     document.getElementById('pw-input').value = '';
     document.getElementById('pw-input').focus();
-    document.getElementById('pw-box').style.animation = 'none';
-    setTimeout(() => document.getElementById('pw-box').style.border = '1px solid #c0392b', 0);
-    setTimeout(() => document.getElementById('pw-box').style.border = '1px solid #ddd', 600);
+    const box = document.getElementById('pw-box');
+    box.style.border = '1px solid #c0392b';
+    setTimeout(() => box.style.border = '1px solid #ddd', 600);
   }
 }
 
-// Eingeloggt bleiben solange Tab offen ist (sessionStorage)
 if (sessionStorage.getItem('galerie_auth') === '1') {
   document.getElementById('pw-screen').classList.add('hidden');
   document.getElementById('main-content').classList.add('visible');
-}
-</script>
-
-<script>
-// ── CLOUDINARY CONFIG ──
-const CLOUD_NAME = 'dwiwry3ni';
-const UPLOAD_PRESET = 'biancas_galerie';
-const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-const FETCH_URL = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload`;
-
-// ── STATE ──
-// Photos stored in localStorage so they persist across page loads on same device
-// Cloud URLs work on ALL devices
-let photos = JSON.parse(localStorage.getItem('biancas_galerie_photos') || '[]');
-let currentFilter = 'all';
-let lbIndex = 0;
-
-function saveState() {
-  // Save only metadata (not base64 blobs) - cloud URLs are enough
-  const toSave = photos.map(p => ({id:p.id, url:p.url, thumbUrl:p.thumbUrl, name:p.name, size:p.size, status:p.status, publicId:p.publicId}));
-  localStorage.setItem('biancas_galerie_photos', JSON.stringify(toSave));
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('pw-input').focus();
+  });
 }
 
-// ── DRAG & DROP ──
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let photos = [], currentFilter = 'all', lbIndex = 0;
+
+async function init() {
+  setSyncStatus('&#9729; Lade Fotos...');
+  try {
+    const data = await DB.getAll();
+    photos = data.map(r => ({
+      id: r.id, url: r.url, thumbUrl: r.thumb_url, name: r.name,
+      size: r.size, status: r.status, publicId: r.public_id, uploading: false
+    }));
+    setSyncStatus('&#10003; ' + photos.length + ' Fotos geladen');
+    setTimeout(() => setSyncStatus(''), 3000);
+  } catch(e) {
+    setSyncStatus('&#10060; Fehler beim Laden');
+    console.error(e);
+  }
+  renderGallery(); updateStats();
+}
+
+function setSyncStatus(msg) {
+  document.getElementById('sync-status').innerHTML = msg;
+}
+
+// ══════════════════════════════════════
+// DRAG & DROP
+// ══════════════════════════════════════
 document.body.addEventListener('dragover', e => { e.preventDefault(); document.getElementById('upload-zone').style.borderColor='#3a7a3a'; });
 document.body.addEventListener('dragleave', () => { document.getElementById('upload-zone').style.borderColor='#bbb'; });
 document.body.addEventListener('drop', e => {
-  e.preventDefault();
-  document.getElementById('upload-zone').style.borderColor='#bbb';
-  const f = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/'));
-  if (f.length) uploadFromFiles(f);
+  e.preventDefault(); document.getElementById('upload-zone').style.borderColor='#bbb';
+  const f = [...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));
+  if(f.length) uploadFromFiles(f);
 });
-
 function uploadPhotos(e) { uploadFromFiles([...e.target.files]); e.target.value=''; }
 
+// ══════════════════════════════════════
+// UPLOAD
+// ══════════════════════════════════════
 async function uploadFromFiles(files) {
-  const zone = document.getElementById('upload-zone');
-  const prog = document.getElementById('upload-progress-bar');
-  const bar  = document.getElementById('upl-bar');
-  const stat = document.getElementById('upl-status');
+  const zone  = document.getElementById('upload-zone');
+  const prog  = document.getElementById('loading-bar');
+  const bar   = document.getElementById('upl-bar');
+  const stat  = document.getElementById('upl-status');
 
   zone.classList.add('uploading');
   zone.textContent = '⏳ Wird hochgeladen...';
   prog.style.display = 'block';
 
-  for (let i = 0; i < files.length; i++) {
+  for (let i=0; i<files.length; i++) {
     const file = files[i];
     stat.textContent = `${i+1} / ${files.length} — ${file.name}`;
-    bar.style.width = Math.round((i / files.length) * 100) + '%';
+    bar.style.width = Math.round((i/files.length)*100)+'%';
 
-    // Add placeholder card
-    const placeholderId = 'ph_' + Date.now() + i;
+    // Local preview while uploading
     const reader = new FileReader();
     const previewSrc = await new Promise(res => { reader.onload = e => res(e.target.result); reader.readAsDataURL(file); });
-
-    photos.push({ id: placeholderId, url: previewSrc, thumbUrl: previewSrc, name: file.name, size: file.size, status: 'unrated', publicId: null, uploading: true });
+    const ph = { id:'ph_'+Date.now()+i, url:previewSrc, thumbUrl:previewSrc, name:file.name, size:file.size, status:'unrated', uploading:true };
+    photos.unshift(ph);
     renderGallery(); updateStats();
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', UPLOAD_PRESET);
-      formData.append('folder', 'biancas_galerie');
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('upload_preset', UPLOAD_PRESET);
+      fd.append('folder', 'biancas_galerie');
 
-      const res = await fetch(UPLOAD_URL, { method: 'POST', body: formData });
+      const res  = await fetch(UPLOAD_URL, { method:'POST', body:fd });
       const data = await res.json();
 
       if (data.secure_url) {
-        const idx = photos.findIndex(p => p.id === placeholderId);
-        if (idx !== -1) {
-          photos[idx] = {
-            id: data.public_id,
-            url: data.secure_url,
-            thumbUrl: data.secure_url.replace('/upload/', '/upload/w_400,c_limit,q_auto,f_auto/'),
-            name: file.name,
-            size: file.size,
-            status: 'unrated',
-            publicId: data.public_id,
-            uploading: false
-          };
-        }
+        const record = {
+          id: data.public_id,
+          url: data.secure_url,
+          thumb_url: data.secure_url.replace('/upload/','/upload/w_600,c_limit,q_auto,f_auto/'),
+          name: file.name,
+          size: file.size,
+          status: 'unrated',
+          public_id: data.public_id
+        };
+        await DB.insert(record);
+        const idx = photos.findIndex(p=>p.id===ph.id);
+        if(idx!==-1) photos[idx] = { ...record, thumbUrl:record.thumb_url, uploading:false };
       } else {
-        // Remove placeholder on error
-        photos = photos.filter(p => p.id !== placeholderId);
-        alert('Fehler beim Hochladen von ' + file.name);
+        photos = photos.filter(p=>p.id!==ph.id);
+        alert('Fehler beim Hochladen: ' + file.name);
       }
     } catch(err) {
-      photos = photos.filter(p => p.id !== placeholderId);
+      photos = photos.filter(p=>p.id!==ph.id);
       console.error(err);
     }
 
-    saveState();
     renderGallery(); updateStats();
   }
 
-  bar.style.width = '100%';
-  stat.textContent = 'Fertig!';
-  setTimeout(() => { prog.style.display='none'; bar.style.width='0%'; }, 1500);
+  bar.style.width='100%';
+  stat.textContent='Fertig!';
+  setTimeout(()=>{ prog.style.display='none'; bar.style.width='0%'; }, 1500);
   zone.classList.remove('uploading');
-  zone.textContent = '☁ Fotos hochladen (werden in der Cloud gespeichert)';
+  zone.textContent='☁ Fotos hochladen (auf allen Geräten sichtbar)';
 }
 
-// ── RENDER ──
+// ══════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════
 function renderGallery() {
   const grid  = document.getElementById('grid');
   const empty = document.getElementById('empty-state');
   const bt    = document.getElementById('bottom-toolbar');
-
-  if (photos.length === 0) { grid.style.display='none'; empty.style.display='block'; bt.style.display='none'; return; }
-
   let filtered = getFiltered();
-  grid.style.display = 'block'; empty.style.display = 'none'; bt.style.display = 'flex';
-  grid.innerHTML = '';
+
+  if (photos.length===0) { grid.innerHTML=''; empty.style.display='block'; bt.style.display='none'; return; }
+  empty.style.display='none'; bt.style.display='flex';
+  grid.innerHTML='';
 
   filtered.forEach(photo => {
     const ri = photos.indexOf(photo);
     const card = document.createElement('div');
-    card.className = 'photo-card' + (photo.uploading ? ' uploading-card' : '') + (photo.status !== 'unrated' ? ` selected-${photo.status}` : '');
+    card.className = 'photo-card' + (photo.uploading?' uploading-card':'') + (photo.status!=='unrated'?` selected-${photo.status}`:'');
     card.innerHTML = `
       <div class="img-wrap">
-        <img src="${photo.thumbUrl || photo.url}" alt="${photo.name}" loading="lazy">
-        ${photo.uploading ? '<div class="upload-spinner">⏳ Wird hochgeladen...</div>' : ''}
+        <img src="${photo.thumbUrl||photo.url}" alt="${photo.name}" loading="lazy">
+        ${photo.uploading?'<div class="upload-spinner">&#9203; Wird hochgeladen...</div>':''}
         <div class="overlay"></div>
         <div class="actions">
           <button class="action-btn btn-fav"    onclick="markPhoto(${ri},'fav');event.stopPropagation()">&#9733;</button>
@@ -440,14 +506,14 @@ function renderGallery() {
           <button class="action-btn btn-reject" onclick="markPhoto(${ri},'reject');event.stopPropagation()">&#10005;</button>
           <button class="action-btn btn-dl"     onclick="downloadSingle(${ri});event.stopPropagation()">&#8659;</button>
         </div>
-        ${photo.status !== 'unrated' ? `<div class="status-badge badge-${photo.status}">${photo.status==='fav'?'&#9733;':photo.status==='pick'?'&#10003; Pick':'&#10005;'}</div>` : ''}
+        ${photo.status!=='unrated'?`<div class="status-badge badge-${photo.status}">${photo.status==='fav'?'&#9733;':photo.status==='pick'?'&#10003; Pick':'&#10005;'}</div>`:''}
         <div class="num">${ri+1}</div>
       </div>
       <div class="info">
         <div class="filename">${photo.name}</div>
-        <div class="meta">${(photo.size/1024).toFixed(0)} KB ${photo.uploading ? '· wird hochgeladen...' : '· ☁ Cloud'}</div>
+        <div class="meta">${photo.size?(photo.size/1024).toFixed(0)+' KB &middot; ':''} &#9729; Cloud</div>
       </div>`;
-    if (!photo.uploading) card.addEventListener('click', () => openLightbox(ri));
+    if(!photo.uploading) card.addEventListener('click',()=>openLightbox(ri));
     grid.appendChild(card);
   });
   updateSelectionBadge();
@@ -455,146 +521,141 @@ function renderGallery() {
 
 function getFiltered() {
   let r = [...photos];
-  if (currentFilter !== 'all') r = r.filter(p => p.status === currentFilter);
-  const s = document.getElementById('sort-select').value;
-  if (s === 'name') r.sort((a,b) => a.name.localeCompare(b.name));
-  else if (s === 'fav') r.sort((a,b) => (b.status==='fav') - (a.status==='fav'));
+  if(currentFilter!=='all') r=r.filter(p=>p.status===currentFilter);
+  const s=document.getElementById('sort-select').value;
+  if(s==='name') r.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(s==='fav') r.sort((a,b)=>(b.status==='fav')-(a.status==='fav'));
   return r;
 }
 
-function markPhoto(idx, status) {
-  if (!photos[idx]) return;
-  photos[idx].status = photos[idx].status === status ? 'unrated' : status;
-  saveState(); renderGallery(); updateStats();
+async function markPhoto(idx, status) {
+  if(!photos[idx]||photos[idx].uploading) return;
+  const newStatus = photos[idx].status===status?'unrated':status;
+  photos[idx].status = newStatus;
+  renderGallery(); updateStats();
+  await DB.update(photos[idx].id, { status: newStatus });
 }
 
 function updateStats() {
-  document.getElementById('stat-total').textContent   = photos.length;
+  document.getElementById('stat-total').textContent   = photos.filter(p=>!p.uploading).length;
   document.getElementById('stat-picks').textContent   = photos.filter(p=>p.status==='pick').length;
   document.getElementById('stat-favs').textContent    = photos.filter(p=>p.status==='fav').length;
   document.getElementById('stat-rejects').textContent = photos.filter(p=>p.status==='reject').length;
-  document.getElementById('stat-unrated').textContent = photos.filter(p=>p.status==='unrated').length;
+  document.getElementById('stat-unrated').textContent = photos.filter(p=>p.status==='unrated'&&!p.uploading).length;
 }
-
 function updateSelectionBadge() {
-  const n = photos.filter(p=>p.status==='pick'||p.status==='fav').length;
-  document.getElementById('selection-count').textContent = n + ' ausgewählt';
+  const n=photos.filter(p=>p.status==='pick'||p.status==='fav').length;
+  document.getElementById('selection-count').textContent=n+' ausgewählt';
 }
-
-function setFilter(f, el) {
-  currentFilter = f;
+function setFilter(f,el) {
+  currentFilter=f;
   document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
+  if(el)el.classList.add('active');
   renderGallery();
 }
-
 function setCols(n) {
-  const grid = document.getElementById('grid');
-  grid.className = n===2 ? 'cols-2' : n===3 ? 'cols-3' : '';
+  const grid=document.getElementById('grid');
+  grid.className=n===2?'cols-2':n===3?'cols-3':'';
   document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
-  const btn = document.getElementById('btn-'+n);
-  if(btn) btn.classList.add('active');
+  const btn=document.getElementById('btn-'+n);
+  if(btn)btn.classList.add('active');
   document.getElementById('btn-list').classList.remove('active');
 }
-
-function setView(mode) {
-  document.getElementById('grid').className = 'list-view';
+function setView() {
+  document.getElementById('grid').className='list-view';
   document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('btn-list').classList.add('active');
   renderGallery();
 }
 
-// ── LIGHTBOX ──
-function openLightbox(idx) { lbIndex=idx; document.getElementById('lightbox').classList.add('open'); updateLightbox(); }
-function updateLightbox() {
-  const p = photos[lbIndex]; if(!p) return;
-  // Use full-res URL for lightbox
-  document.getElementById('lb-img').src = p.url;
-  document.getElementById('lb-name').textContent = `${lbIndex+1} / ${photos.length}  —  ${p.name}`;
+// ══════════════════════════════════════
+// LIGHTBOX
+// ══════════════════════════════════════
+function openLightbox(idx){lbIndex=idx;document.getElementById('lightbox').classList.add('open');updateLightbox()}
+function updateLightbox(){
+  const p=photos[lbIndex];if(!p)return;
+  document.getElementById('lb-img').src=p.url;
+  document.getElementById('lb-name').textContent=`${lbIndex+1} / ${photos.length}  —  ${p.name}`;
 }
-function lbNav(dir) { lbIndex=(lbIndex+dir+photos.length)%photos.length; updateLightbox(); }
-function closeLightbox(e) { if(!e||e.target===document.getElementById('lightbox')) document.getElementById('lightbox').classList.remove('open'); }
+function lbNav(dir){lbIndex=(lbIndex+dir+photos.length)%photos.length;updateLightbox()}
+function closeLightbox(e){if(!e||e.target===document.getElementById('lightbox'))document.getElementById('lightbox').classList.remove('open')}
 
-document.addEventListener('keydown', e => {
-  if(!document.getElementById('lightbox').classList.contains('open')) return;
-  if(e.key==='ArrowLeft')  lbNav(-1);
-  if(e.key==='ArrowRight') lbNav(1);
-  if(e.key==='Escape')     closeLightbox();
-  if(e.key==='f') markPhoto(lbIndex,'fav');
-  if(e.key==='p') markPhoto(lbIndex,'pick');
-  if(e.key==='r') markPhoto(lbIndex,'reject');
-  if(e.key==='d') downloadSingle(lbIndex);
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='ArrowRight')lbNav(1);
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='f')markPhoto(lbIndex,'fav');
+  if(e.key==='p')markPhoto(lbIndex,'pick');
+  if(e.key==='r')markPhoto(lbIndex,'reject');
+  if(e.key==='d')downloadSingle(lbIndex);
 });
 
-// ── DOWNLOAD ──
+// ══════════════════════════════════════
+// DOWNLOAD
+// ══════════════════════════════════════
 function downloadSingle(idx) {
-  const p = photos[idx]; if(!p||!p.url) return;
-  // Force download via fetch to avoid browser opening image
+  const p=photos[idx];if(!p||!p.url)return;
   fetch(p.url).then(r=>r.blob()).then(blob=>{
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download=p.name;
-    a.click();
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=p.name;a.click();
   });
 }
 
 async function downloadZip(type) {
-  let list = photos;
-  if(type==='pick') list = photos.filter(p=>p.status==='pick');
-  else if(type==='fav') list = photos.filter(p=>p.status==='fav');
-  list = list.filter(p=>!p.uploading);
+  let list=photos.filter(p=>!p.uploading);
+  if(type==='pick') list=list.filter(p=>p.status==='pick');
+  else if(type==='fav') list=list.filter(p=>p.status==='fav');
+  if(list.length===0){alert('Keine Fotos in dieser Kategorie.');return}
 
-  if(list.length===0){alert('Keine Fotos in dieser Kategorie vorhanden.');return}
+  const prog=document.getElementById('dl-progress'),bar=document.getElementById('dl-bar'),status=document.getElementById('dl-status');
+  prog.style.display='block';bar.style.width='0%';
 
-  const prog=document.getElementById('dl-progress');
-  const bar=document.getElementById('dl-bar');
-  const status=document.getElementById('dl-status');
-  prog.style.display='block'; bar.style.width='0%';
-
-  const zip = new JSZip();
-
-  for(let i=0; i<list.length; i++) {
-    const p = list[i];
-    status.textContent = `${i+1} / ${list.length} — ${p.name}`;
-    bar.style.width = Math.round((i/list.length)*90)+'%';
-    try {
-      const res = await fetch(p.url);
-      const blob = await res.blob();
-      const arrayBuf = await blob.arrayBuffer();
-      zip.file(p.name, arrayBuf);
-    } catch(e) { console.error('Fehler bei', p.name, e); }
+  const zip=new JSZip();
+  for(let i=0;i<list.length;i++){
+    const p=list[i];
+    status.textContent=`${i+1} / ${list.length} — ${p.name}`;
+    bar.style.width=Math.round((i/list.length)*90)+'%';
+    try{const res=await fetch(p.url);zip.file(p.name,await res.arrayBuffer());}catch(e){console.error(e);}
     await new Promise(r=>setTimeout(r,0));
   }
-
-  status.textContent='ZIP wird erstellt...'; bar.style.width='95%';
-  const blob = await zip.generateAsync({type:'blob'});
-  bar.style.width='100%'; status.textContent='Fertig!';
-
-  const label = type==='pick'?'picks':type==='fav'?'favoriten':'alle-fotos';
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`biancas-galerie-${label}.zip`;
-  a.click();
-
-  setTimeout(()=>{prog.style.display='none'; bar.style.width='0%';}, 2000);
+  status.textContent='ZIP wird erstellt...';bar.style.width='95%';
+  const blob=await zip.generateAsync({type:'blob'});
+  bar.style.width='100%';status.textContent='Fertig!';
+  const label=type==='pick'?'picks':type==='fav'?'favoriten':'alle-fotos';
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`biancas-galerie-${label}.zip`;a.click();
+  setTimeout(()=>{prog.style.display='none';bar.style.width='0%';},2000);
 }
 
-function exportCSV() {
-  let lines = ['Dateiname,Status,URL'];
-  photos.forEach(p=>lines.push(`${p.name},${p.status},${p.url}`));
+function exportCSV(){
+  let lines=['Dateiname,Status,URL'];
+  photos.filter(p=>!p.uploading).forEach(p=>lines.push(`${p.name},${p.status},${p.url}`));
   const blob=new Blob([lines.join('\n')],{type:'text/csv'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='galerie-uebersicht.csv';
-  a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='galerie.csv';a.click();
 }
 
-function selectAll(){photos.forEach(p=>p.status='pick');saveState();renderGallery();updateStats()}
-function clearAll(){photos.forEach(p=>p.status='unrated');saveState();renderGallery();updateStats()}
-function removeAll(){if(!confirm('Alle Fotos aus der Galerie entfernen?\n(Fotos bleiben in der Cloud gespeichert)'))return;photos=[];saveState();renderGallery();updateStats()}
+// ══════════════════════════════════════
+// BULK ACTIONS
+// ══════════════════════════════════════
+async function selectAll(){
+  const toUpdate=photos.filter(p=>!p.uploading&&p.status!=='pick');
+  photos.filter(p=>!p.uploading).forEach(p=>p.status='pick');
+  renderGallery();updateStats();
+  for(const p of toUpdate) await DB.update(p.id,{status:'pick'});
+}
 
-// ── INIT ──
-renderGallery(); updateStats();
+async function clearAll(){
+  photos.filter(p=>!p.uploading).forEach(p=>p.status='unrated');
+  renderGallery();updateStats();
+  for(const p of photos.filter(p=>!p.uploading)) await DB.update(p.id,{status:'unrated'});
+}
+
+async function removeAll(){
+  if(!confirm('Alle Fotos aus der Galerie entfernen?\n(Fotos bleiben in Cloudinary gespeichert)'))return;
+  photos=[];renderGallery();updateStats();
+  await DB.deleteAll();
+  setSyncStatus('&#10003; Galerie geleert');
+  setTimeout(()=>setSyncStatus(''),3000);
+}
 </script>
 </body>
 </html>
