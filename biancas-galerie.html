@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biancas Galerie</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',Arial,sans-serif;background:#fff;color:#333;font-size:14px;line-height:1.6}
+#site-header{background:#fff;border-bottom:1px solid #ddd;text-align:center;padding:28px 20px 18px}
+#site-header h1{font-family:'Lora',Georgia,serif;font-size:36px;font-weight:600;color:#222;letter-spacing:-.5px;margin-bottom:5px}
+#site-header .tagline{font-size:13px;color:#888;font-style:italic;font-family:'Lora',Georgia,serif}
+#nav-bar{background:#f9f9f9;border-bottom:1px solid #ddd;padding:0 20px;display:flex;align-items:center;overflow-x:auto}
+.nav-link{padding:10px 15px;font-size:13px;font-weight:600;color:#555;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;text-decoration:none;display:block}
+.nav-link:hover{color:#222}
+.nav-link.active{color:#333;border-bottom-color:#888}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;padding:6px 0;flex-shrink:0}
+.nav-btn{padding:6px 14px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;transition:background .15s;white-space:nowrap}
+.nav-btn:hover{background:#f0f0f0}
+.nav-btn.primary{background:#555;color:#fff;border-color:#555}
+.nav-btn.primary:hover{background:#333}
+.nav-btn.download{background:#2a6a2a;color:#fff;border-color:#2a6a2a}
+.nav-btn.download:hover{background:#1e4e1e}
+#layout{display:flex;max-width:1160px;margin:0 auto;padding:24px 16px;gap:32px;align-items:flex-start}
+#content{flex:1;min-width:0}
+#toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #eee}
+#upload-zone{border:1px dashed #bbb;border-radius:3px;padding:7px 14px;cursor:pointer;color:#666;font-size:12px;font-weight:600;transition:all .15s;background:#fafafa}
+#upload-zone:hover{border-color:#888;background:#f0f0f0;color:#333}
+#upload-input{display:none}
+.sep{width:1px;height:20px;background:#ddd;margin:0 2px}
+select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;color:#555;background:#fff;cursor:pointer}
+.view-btn{width:28px;height:28px;border:1px solid #ddd;border-radius:3px;background:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.view-btn:hover,.view-btn.active{background:#eee;border-color:#aaa}
+
+/* EMPTY STATE */
+#empty-state{text-align:center;padding:60px 20px;color:#aaa;border:1px dashed #ddd;border-radius:4px}
+#empty-state .big-icon{font-size:48px;display:block;margin-bottom:14px}
+#empty-state p{font-size:15px;color:#bbb;margin-bottom:6px}
+#empty-state small{font-size:12px;color:#ccc}
+
+/* MASONRY GRID */
+#grid{columns:4;column-gap:12px}
+#grid.cols-3{columns:3}
+#grid.cols-2{columns:2}
+#grid.list-view{columns:1}
+
+.photo-card{break-inside:avoid;margin-bottom:12px;background:#fff;border:1px solid #e0e0e0;border-radius:2px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative;display:block}
+.photo-card:hover{border-color:#999;box-shadow:0 3px 12px rgba(0,0,0,.1)}
+.photo-card.selected-fav{border-color:#c8a200;border-width:2px}
+.photo-card.selected-pick{border-color:#3a7a3a;border-width:2px}
+.photo-card.selected-reject{border-color:#c0392b;border-width:2px;opacity:.5}
+
+/* IMAGE — no fixed aspect ratio, natural proportions */
+.img-wrap{position:relative;overflow:hidden;background:#f5f5f5;line-height:0}
+.img-wrap img{width:100%;height:auto;display:block;transition:transform .35s}
+.photo-card:hover .img-wrap img{transform:scale(1.03)}
+
+.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.4) 0%,transparent 50%);opacity:0;transition:opacity .2s}
+.photo-card:hover .overlay{opacity:1}
+
+.actions{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:7px;opacity:0;transition:opacity .2s}
+.photo-card:hover .actions{opacity:1}
+.action-btn{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.action-btn:hover{transform:scale(1.18)}
+.btn-fav{background:rgba(255,240,140,.92);color:#8a6a00}
+.btn-pick{background:rgba(190,240,190,.92);color:#1a5a1a}
+.btn-reject{background:rgba(255,195,185,.92);color:#a02020}
+
+.status-badge{position:absolute;top:7px;left:7px;padding:2px 7px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:.04em;pointer-events:none}
+.badge-fav{background:#c8a200;color:#fff}
+.badge-pick{background:#3a7a3a;color:#fff}
+.badge-reject{background:#c0392b;color:#fff}
+.photo-card .num{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.45);color:#fff;border-radius:2px;font-size:10px;font-weight:700;padding:1px 5px;pointer-events:none}
+
+.photo-card .info{padding:7px 10px;border-top:1px solid #f0f0f0}
+.photo-card .filename{font-size:11px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.photo-card .meta{font-size:10px;color:#aaa;margin-top:1px}
+
+/* LIST VIEW */
+#grid.list-view .photo-card{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+#grid.list-view .img-wrap{width:90px;flex-shrink:0;line-height:0}
+#grid.list-view .img-wrap img{width:90px;height:68px;object-fit:cover}
+#grid.list-view .info{flex:1;border-top:none}
+#grid.list-view .actions{position:static;opacity:1;justify-content:flex-end;padding:0 10px 0 0}
+#grid.list-view .overlay{display:none}
+#grid.list-view .num{top:4px}
+
+/* BOTTOM TOOLBAR */
+#bottom-toolbar{margin-top:4px;padding-top:12px;border-top:1px solid #eee;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tb-btn{padding:5px 12px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;transition:all .15s}
+.tb-btn:hover{background:#f0f0f0}
+.tb-btn.danger{color:#c0392b;border-color:#e8bbb8}
+.tb-btn.danger:hover{background:#fdf0ee}
+
+/* SIDEBAR */
+#sidebar{width:185px;min-width:185px;flex-shrink:0}
+.side-section{margin-bottom:22px}
+.side-title{font-family:'Lora',Georgia,serif;font-size:13px;font-weight:600;color:#333;border-bottom:1px solid #ddd;padding-bottom:5px;margin-bottom:10px}
+.stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;font-size:12px;color:#555;border-bottom:1px dotted #eee}
+.stat-row:last-child{border-bottom:none}
+.stat-num{font-weight:700;color:#333;font-size:14px}
+.side-link{display:block;font-size:12px;color:#555;text-decoration:none;padding:3px 0;cursor:pointer;transition:color .15s}
+.side-link:hover{color:#111;text-decoration:underline}
+
+/* DOWNLOAD BOX in sidebar */
+.download-box{background:#f0f8f0;border:1px solid #b8ddb8;border-radius:3px;padding:12px;margin-bottom:10px}
+.download-box p{font-size:11px;color:#4a7a4a;margin-bottom:8px;line-height:1.4}
+.dl-btn{width:100%;padding:7px 10px;border:1px solid #3a7a3a;border-radius:3px;background:#3a7a3a;color:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;margin-bottom:5px;text-align:center}
+.dl-btn:hover{background:#2a5a2a}
+.dl-btn.single{background:#fff;color:#3a7a3a;border-color:#3a7a3a}
+.dl-btn.single:hover{background:#f0f8f0}
+#dl-progress{display:none;margin-top:8px;font-size:11px;color:#4a7a4a;text-align:center}
+#dl-bar-wrap{height:4px;background:#c8e8c8;border-radius:2px;margin-top:4px;overflow:hidden}
+#dl-bar{height:100%;background:#3a7a3a;width:0%;transition:width .2s}
+
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center}
+#lightbox.open{display:flex}
+#lb-inner{background:#fff;border-radius:2px;max-width:94vw;max-height:94vh;overflow:hidden;display:flex;flex-direction:column}
+#lb-img-wrap{overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0a0a;flex:1;min-height:0}
+#lb-img{max-width:90vw;max-height:82vh;object-fit:contain;display:block}
+#lb-bar{padding:9px 14px;display:flex;align-items:center;gap:8px;border-top:1px solid #eee;background:#fafafa;flex-shrink:0}
+#lb-name{font-size:12px;color:#666;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-btn{padding:5px 11px;border:1px solid #ccc;border-radius:3px;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:#555;white-space:nowrap}
+.lb-btn:hover{background:#f0f0f0}
+.lb-btn.fav{border-color:#c8a200;color:#9a7a00}.lb-btn.fav:hover{background:#fffae0}
+.lb-btn.pick{border-color:#3a7a3a;color:#3a7a3a}.lb-btn.pick:hover{background:#f0f8f0}
+.lb-btn.reject{border-color:#c0392b;color:#c0392b}.lb-btn.reject:hover{background:#fdf0ee}
+.lb-btn.dl{border-color:#3a7a3a;background:#3a7a3a;color:#fff}.lb-btn.dl:hover{background:#2a5a2a}
+.lb-nav-btn{width:30px;height:30px;border-radius:2px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.lb-nav-btn:hover{background:#eee}
+#lb-close{width:26px;height:26px;border:1px solid #ddd;border-radius:2px;background:#fff;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+#lb-close:hover{background:#eee}
+
+/* EXPORT MODAL */
+#export-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
+#export-modal.open{display:flex}
+#export-inner{background:#fff;border:1px solid #ccc;border-radius:2px;padding:24px;width:440px;max-width:95vw}
+#export-inner h2{font-family:'Lora',Georgia,serif;font-size:18px;margin-bottom:4px;color:#222}
+#export-inner .sub{font-size:12px;color:#999;margin-bottom:16px}
+.export-option{border:1px solid #ddd;border-radius:2px;padding:11px 14px;margin-bottom:8px;cursor:pointer;transition:background .15s}
+.export-option:hover{background:#f5f5f5}
+.export-option h3{font-size:13px;font-weight:700;color:#333}
+.export-option p{font-size:11px;color:#999;margin-top:3px}
+.export-option.highlight{border-color:#3a7a3a;background:#f8fdf8}
+.export-option.highlight h3{color:#3a7a3a}
+.modal-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+#export-progress{display:none;margin-top:10px;font-size:12px;color:#4a7a4a;text-align:center}
+#exp-bar-wrap{height:5px;background:#c8e8c8;border-radius:3px;margin-top:6px;overflow:hidden}
+#exp-bar{height:100%;background:#3a7a3a;width:0%;transition:width .15s}
+
+#site-footer{text-align:center;padding:20px;border-top:1px solid #ddd;font-size:11px;color:#aaa;margin-top:40px}
+</style>
+</head>
+<body>
+
+<div id="site-header">
+  <h1>Biancas Galerie</h1>
+  <div class="tagline">Fotos auswählen, sortieren und herunterladen</div>
+</div>
+
+<div id="nav-bar">
+  <a class="nav-link active" onclick="setFilter('all',this)">Alle Fotos</a>
+  <a class="nav-link" onclick="setFilter('fav',this)">&#9733; Favoriten</a>
+  <a class="nav-link" onclick="setFilter('pick',this)">&#10003; Picks</a>
+  <a class="nav-link" onclick="setFilter('reject',this)">&#10005; Abgelehnt</a>
+  <a class="nav-link" onclick="setFilter('unrated',this)">&#9675; Unbewertet</a>
+  <div class="nav-right">
+    <span id="selection-count" style="font-size:12px;color:#888;white-space:nowrap">0 ausgewählt</span>
+    <button class="nav-btn download" onclick="downloadZip('pick')">&#8659; Picks als ZIP</button>
+    <button class="nav-btn" onclick="openExport()">Exportieren</button>
+    <button class="nav-btn primary" onclick="document.getElementById('upload-input').click()">+ Fotos laden</button>
+    <input type="file" id="upload-input" accept="image/*" multiple onchange="loadPhotos(event)">
+  </div>
+</div>
+
+<div id="layout">
+  <div id="content">
+    <div id="toolbar">
+      <div id="upload-zone" onclick="document.getElementById('upload-input').click()">&#128193; Fotos ablegen oder klicken</div>
+      <div class="sep"></div>
+      <select id="sort-select" onchange="renderGallery()">
+        <option value="date">Reihenfolge</option>
+        <option value="name">Name A–Z</option>
+        <option value="fav">Favoriten zuerst</option>
+      </select>
+      <div class="sep"></div>
+      <label style="font-size:12px;color:#888">Spalten:</label>
+      <button class="view-btn" id="btn-2" onclick="setCols(2)" title="2 Spalten">2</button>
+      <button class="view-btn" id="btn-3" onclick="setCols(3)" title="3 Spalten">3</button>
+      <button class="view-btn active" id="btn-4" onclick="setCols(4)" title="4 Spalten">4</button>
+      <div class="sep"></div>
+      <button class="view-btn" id="btn-list" onclick="setView('list')" title="Liste">&#9776;</button>
+    </div>
+
+    <div id="empty-state">
+      <span class="big-icon">&#128247;</span>
+      <p>Noch keine Fotos geladen</p>
+      <small>Klick auf „+ Fotos laden" oder zieh Bilder in die Galerie</small>
+    </div>
+    <div id="grid" style="display:none"></div>
+
+    <div id="bottom-toolbar" style="display:none">
+      <span style="font-size:12px;color:#888;margin-right:4px">Auswahl:</span>
+      <button class="tb-btn" onclick="selectAll()">Alle als Pick</button>
+      <button class="tb-btn" onclick="clearAll()">Bewertungen zurücksetzen</button>
+      <button class="tb-btn danger" onclick="removeAll()">Alle entfernen</button>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="side-section">
+      <div class="side-title">&#8659; Download</div>
+      <div class="download-box">
+        <p>Ausgewählte Fotos als ZIP-Datei herunterladen:</p>
+        <button class="dl-btn" onclick="downloadZip('pick')">&#10003; Picks laden (ZIP)</button>
+        <button class="dl-btn" onclick="downloadZip('fav')">&#9733; Favoriten laden (ZIP)</button>
+        <button class="dl-btn single" onclick="downloadZip('all')">Alle Fotos (ZIP)</button>
+        <div id="dl-progress">
+          <span id="dl-status">Erstelle ZIP...</span>
+          <div id="dl-bar-wrap"><div id="dl-bar"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-title">&#220;bersicht</div>
+      <div class="stat-row"><span>Gesamt</span><span class="stat-num" id="stat-total">0</span></div>
+      <div class="stat-row"><span>&#10003; Picks</span><span class="stat-num" id="stat-picks" style="color:#3a7a3a">0</span></div>
+      <div class="stat-row"><span>&#9733; Favoriten</span><span class="stat-num" id="stat-favs" style="color:#9a7a00">0</span></div>
+      <div class="stat-row"><span>&#10005; Abgelehnt</span><span class="stat-num" id="stat-rejects" style="color:#c0392b">0</span></div>
+      <div class="stat-row"><span>&#9675; Unbewertet</span><span class="stat-num" id="stat-unrated">0</span></div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-title">Tastenkürzel</div>
+      <div style="font-size:11px;color:#888;line-height:1.9">
+        <b>F</b> — Favorit<br>
+        <b>P</b> — Pick<br>
+        <b>R</b> — Ablehnen<br>
+        <b>D</b> — Foto laden<br>
+        <b>← →</b> — navigieren<br>
+        <b>Esc</b> — schließen
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="side-title">Aktionen</div>
+      <a class="side-link" onclick="selectAll()">→ Alle als Pick</a>
+      <a class="side-link" onclick="clearAll()">→ Bewertungen löschen</a>
+      <a class="side-link" onclick="openExport()">→ CSV exportieren</a>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox(event)">
+  <div id="lb-inner">
+    <div id="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
+    <div id="lb-bar">
+      <div style="display:flex;gap:5px">
+        <button class="lb-nav-btn" onclick="lbNav(-1)">&#8249;</button>
+        <button class="lb-nav-btn" onclick="lbNav(1)">&#8250;</button>
+      </div>
+      <div id="lb-name">Foto</div>
+      <div id="lb-actions" style="display:flex;gap:6px">
+        <button class="lb-btn fav"    onclick="markPhoto(lbIndex,'fav')">&#9733; Favorit</button>
+        <button class="lb-btn pick"   onclick="markPhoto(lbIndex,'pick')">&#10003; Pick</button>
+        <button class="lb-btn reject" onclick="markPhoto(lbIndex,'reject')">&#10005; Ablehnen</button>
+        <button class="lb-btn dl"     onclick="downloadSingle(lbIndex)">&#8659; Laden</button>
+      </div>
+      <button id="lb-close" onclick="closeLightbox()">&#215;</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div id="export-modal" onclick="closeExport(event)">
+  <div id="export-inner">
+    <h2>Exportieren</h2>
+    <div class="sub">Fotos herunterladen oder Liste exportieren</div>
+    <div class="export-option highlight" onclick="downloadZip('pick')">
+      <h3>&#8659; Picks als ZIP herunterladen</h3>
+      <p>Alle als „Pick" markierten Fotos in einer ZIP-Datei</p>
+    </div>
+    <div class="export-option highlight" onclick="downloadZip('fav')">
+      <h3>&#8659; Favoriten als ZIP herunterladen</h3>
+      <p>Alle Favoriten in einer ZIP-Datei</p>
+    </div>
+    <div class="export-option" onclick="downloadZip('all')">
+      <h3>&#8659; Alle Fotos als ZIP</h3>
+      <p>Komplette Galerie als ZIP-Datei</p>
+    </div>
+    <div class="export-option" onclick="exportCSV()">
+      <h3>&#128196; CSV-Übersicht</h3>
+      <p>Alle Fotos mit Status – für Excel oder Notion</p>
+    </div>
+    <div id="export-progress">
+      <span id="exp-status">Erstelle ZIP...</span>
+      <div id="exp-bar-wrap"><div id="exp-bar"></div></div>
+    </div>
+    <div class="modal-btns">
+      <button class="nav-btn" onclick="closeExport()">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer">Biancas Galerie &middot; läuft komplett im Browser &middot; keine Daten werden hochgeladen</div>
+
+<script>
+let photos=[], currentFilter='all', lbIndex=0, cols=4;
+
+// Drag & drop
+document.body.addEventListener('dragover',e=>{e.preventDefault();document.getElementById('upload-zone').style.borderColor='#555'});
+document.body.addEventListener('dragleave',()=>{document.getElementById('upload-zone').style.borderColor='#bbb'});
+document.body.addEventListener('drop',e=>{e.preventDefault();document.getElementById('upload-zone').style.borderColor='#bbb';const f=[...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));if(f.length)loadFromFiles(f)});
+
+function loadPhotos(e){loadFromFiles([...e.target.files]);e.target.value=''}
+
+function loadFromFiles(files){
+  files.forEach((file,i)=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      photos.push({id:Date.now()+i,src:e.target.result,name:file.name,size:file.size,status:'unrated',blob:file});
+      renderGallery();updateStats();
+    };
+    r.readAsDataURL(file);
+  });
+}
+
+function renderGallery(){
+  const grid=document.getElementById('grid'),empty=document.getElementById('empty-state'),bt=document.getElementById('bottom-toolbar');
+  if(photos.length===0){grid.style.display='none';empty.style.display='block';bt.style.display='none';return}
+  let filtered=getFiltered();
+  grid.style.display='block';empty.style.display='none';bt.style.display='flex';
+  grid.innerHTML='';
+  filtered.forEach(photo=>{
+    const ri=photos.indexOf(photo);
+    const card=document.createElement('div');
+    card.className='photo-card'+(photo.status!=='unrated'?` selected-${photo.status}`:'');
+    card.innerHTML=`
+      <div class="img-wrap">
+        <img src="${photo.src}" alt="${photo.name}" loading="lazy">
+        <div class="overlay"></div>
+        <div class="actions">
+          <button class="action-btn btn-fav"    onclick="markPhoto(${ri},'fav');event.stopPropagation()" title="Favorit">&#9733;</button>
+          <button class="action-btn btn-pick"   onclick="markPhoto(${ri},'pick');event.stopPropagation()" title="Pick">&#10003;</button>
+          <button class="action-btn btn-reject" onclick="markPhoto(${ri},'reject');event.stopPropagation()" title="Ablehnen">&#10005;</button>
+          <button class="action-btn" style="background:rgba(190,240,190,.92);color:#1a5a1a" onclick="downloadSingle(${ri});event.stopPropagation()" title="Herunterladen">&#8659;</button>
+        </div>
+        ${photo.status!=='unrated'?`<div class="status-badge badge-${photo.status}">${photo.status==='fav'?'&#9733;':photo.status==='pick'?'&#10003; Pick':'&#10005;'}</div>`:''}
+        <div class="num">${ri+1}</div>
+      </div>
+      <div class="info">
+        <div class="filename">${photo.name}</div>
+        <div class="meta">${(photo.size/1024).toFixed(0)} KB</div>
+      </div>`;
+    card.addEventListener('click',()=>openLightbox(ri));
+    grid.appendChild(card);
+  });
+  updateSelectionBadge();
+}
+
+function getFiltered(){
+  let r=[...photos];
+  if(currentFilter!=='all')r=r.filter(p=>p.status===currentFilter);
+  const s=document.getElementById('sort-select').value;
+  if(s==='name')r.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(s==='fav')r.sort((a,b)=>(b.status==='fav')-(a.status==='fav'));
+  return r;
+}
+
+function markPhoto(idx,status){
+  if(!photos[idx])return;
+  photos[idx].status=photos[idx].status===status?'unrated':status;
+  renderGallery();updateStats();
+}
+
+function updateStats(){
+  document.getElementById('stat-total').textContent=photos.length;
+  document.getElementById('stat-picks').textContent=photos.filter(p=>p.status==='pick').length;
+  document.getElementById('stat-favs').textContent=photos.filter(p=>p.status==='fav').length;
+  document.getElementById('stat-rejects').textContent=photos.filter(p=>p.status==='reject').length;
+  document.getElementById('stat-unrated').textContent=photos.filter(p=>p.status==='unrated').length;
+}
+
+function updateSelectionBadge(){
+  const n=photos.filter(p=>p.status==='pick'||p.status==='fav').length;
+  document.getElementById('selection-count').textContent=n+' ausgewählt';
+}
+
+function setFilter(f,el){
+  currentFilter=f;
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderGallery();
+}
+
+function setCols(n){
+  cols=n;
+  const grid=document.getElementById('grid');
+  grid.className='';
+  if(n===2)grid.classList.add('cols-2');
+  else if(n===3)grid.classList.add('cols-3');
+  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('btn-'+n);
+  if(btn)btn.classList.add('active');
+  const lb=document.getElementById('btn-list');
+  if(lb)lb.classList.remove('active');
+}
+
+function setView(mode){
+  const grid=document.getElementById('grid');
+  grid.className='list-view';
+  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-list').classList.add('active');
+  renderGallery();
+}
+
+// LIGHTBOX
+function openLightbox(idx){lbIndex=idx;document.getElementById('lightbox').classList.add('open');updateLightbox()}
+function updateLightbox(){
+  const p=photos[lbIndex];if(!p)return;
+  document.getElementById('lb-img').src=p.src;
+  document.getElementById('lb-name').textContent=`${lbIndex+1} / ${photos.length}  —  ${p.name}`;
+}
+function lbNav(dir){lbIndex=(lbIndex+dir+photos.length)%photos.length;updateLightbox()}
+function closeLightbox(e){if(!e||e.target===document.getElementById('lightbox'))document.getElementById('lightbox').classList.remove('open')}
+
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='ArrowLeft')lbNav(-1);
+  if(e.key==='ArrowRight')lbNav(1);
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='f')markPhoto(lbIndex,'fav');
+  if(e.key==='p')markPhoto(lbIndex,'pick');
+  if(e.key==='r')markPhoto(lbIndex,'reject');
+  if(e.key==='d')downloadSingle(lbIndex);
+});
+
+// SINGLE DOWNLOAD
+function downloadSingle(idx){
+  const p=photos[idx];if(!p)return;
+  const a=document.createElement('a');
+  a.href=p.src;
+  a.download=p.name;
+  a.click();
+}
+
+// ZIP DOWNLOAD
+async function downloadZip(type){
+  let list=photos;
+  if(type==='pick')list=photos.filter(p=>p.status==='pick');
+  else if(type==='fav')list=photos.filter(p=>p.status==='fav');
+  if(list.length===0){alert('Keine Fotos in dieser Kategorie vorhanden.');return}
+
+  // Show progress
+  const prog=document.getElementById('dl-progress');
+  const bar=document.getElementById('dl-bar');
+  const status=document.getElementById('dl-status');
+  prog.style.display='block';
+  bar.style.width='0%';
+  status.textContent=`0 / ${list.length} Fotos...`;
+
+  const zip=new JSZip();
+  for(let i=0;i<list.length;i++){
+    const p=list[i];
+    // Convert base64 dataURL to blob data
+    const base64=p.src.split(',')[1];
+    zip.file(p.name,base64,{base64:true});
+    const pct=Math.round(((i+1)/list.length)*80);
+    bar.style.width=pct+'%';
+    status.textContent=`${i+1} / ${list.length} Fotos...`;
+    await new Promise(r=>setTimeout(r,0));
+  }
+
+  status.textContent='ZIP wird erstellt...';
+  bar.style.width='90%';
+  const blob=await zip.generateAsync({type:'blob'});
+  bar.style.width='100%';
+
+  const label=type==='pick'?'picks':type==='fav'?'favoriten':'alle-fotos';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`biancas-galerie-${label}.zip`;
+  a.click();
+
+  setTimeout(()=>{prog.style.display='none';bar.style.width='0%'},2000);
+
+  // Also update export modal progress if open
+  const eprog=document.getElementById('export-progress');
+  if(eprog.style.display==='block'){eprog.style.display='none';}
+}
+
+// Also wire up export modal progress
+async function downloadZipFromModal(type){
+  const eprog=document.getElementById('export-progress');
+  const ebar=document.getElementById('exp-bar');
+  const estatus=document.getElementById('exp-status');
+  eprog.style.display='block';ebar.style.width='0%';
+  let list=photos;
+  if(type==='pick')list=photos.filter(p=>p.status==='pick');
+  else if(type==='fav')list=photos.filter(p=>p.status==='fav');
+  if(list.length===0){alert('Keine Fotos vorhanden.');eprog.style.display='none';return}
+  const zip=new JSZip();
+  for(let i=0;i<list.length;i++){
+    zip.file(list[i].name,list[i].src.split(',')[1],{base64:true});
+    ebar.style.width=Math.round(((i+1)/list.length)*80)+'%';
+    estatus.textContent=`${i+1} / ${list.length}...`;
+    await new Promise(r=>setTimeout(r,0));
+  }
+  estatus.textContent='Fertig!';ebar.style.width='100%';
+  const blob=await zip.generateAsync({type:'blob'});
+  const label=type==='pick'?'picks':type==='fav'?'favoriten':'alle-fotos';
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`biancas-galerie-${label}.zip`;a.click();
+  setTimeout(()=>{eprog.style.display='none';ebar.style.width='0%'},2000);
+}
+
+function exportCSV(){
+  let lines=['Dateiname,Status,Größe'];
+  photos.forEach(p=>lines.push(`${p.name},${p.status},${(p.size/1024).toFixed(0)} KB`));
+  const blob=new Blob([lines.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='galerie-uebersicht.csv';a.click();
+}
+
+function selectAll(){photos.forEach(p=>p.status='pick');renderGallery();updateStats()}
+function clearAll(){photos.forEach(p=>p.status='unrated');renderGallery();updateStats()}
+function removeAll(){if(!confirm('Alle Fotos entfernen?'))return;photos=[];renderGallery();updateStats()}
+
+function openExport(){document.getElementById('export-modal').classList.add('open')}
+function closeExport(e){if(!e||e.target===document.getElementById('export-modal'))document.getElementById('export-modal').classList.remove('open')}
+</script>
+</body>
+</html>
