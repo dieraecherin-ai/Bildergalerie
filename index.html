@@ -257,7 +257,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
   <div class="nav-right">
     <span id="selection-count" style="font-size:12px;color:#aaa;white-space:nowrap">0 Favoriten</span>
     <button class="nav-btn dark" onclick="downloadZip('fav')">&#8659; Favoriten als ZIP</button>
-    <button class="nav-btn primary" onclick="document.getElementById('upload-input').click()">+ Fotos hochladen</button>
+    <button class="nav-btn primary admin-only" onclick="document.getElementById('upload-input').click()">+ Fotos hochladen</button>
     <button id="logout-btn" onclick="doLogout()">Abmelden</button>
     <input type="file" id="upload-input" accept="image/*" multiple onchange="uploadPhotos(event)">
   </div>
@@ -266,7 +266,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 <div id="layout">
   <div id="content">
     <div id="toolbar">
-      <div id="upload-zone" onclick="document.getElementById('upload-input').click()">&#9729; Fotos hochladen</div>
+      <div id="upload-zone" class="admin-only" onclick="document.getElementById('upload-input').click()">&#9729; Fotos hochladen</div>
       <div class="sep"></div>
       <select id="sort-select" onchange="renderGallery()">
         <option value="date">Neueste zuerst</option>
@@ -296,8 +296,8 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 
     <div id="bottom-toolbar" style="display:none">
       <span style="font-size:12px;color:#aaa;margin-right:4px">Auswahl:</span>
-      <button class="tb-btn" onclick="clearAll()">Bewertungen zurücksetzen</button>
-      <button class="tb-btn danger" onclick="removeAll()">Alle entfernen</button>
+      <button class="tb-btn admin-only" onclick="clearAll()">Bewertungen zurücksetzen</button>
+      <button class="tb-btn danger admin-only" onclick="removeAll()">Alle entfernen</button>
     </div>
   </div>
 
@@ -308,7 +308,7 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
       <div class="download-box">
         <p>Ausgewählte Fotos herunterladen:</p>
         <button class="dl-btn" onclick="downloadZip('fav')">&#9733; Favoriten (ZIP)</button>
-        <button class="dl-btn secondary" onclick="downloadZip('all')">Alle Fotos (ZIP)</button>
+        <button class="dl-btn secondary admin-only" onclick="downloadZip('all')">Alle Fotos (ZIP)</button>
         <div id="dl-progress">
           <span id="dl-status">Erstelle ZIP...</span>
           <div id="dl-bar-wrap"><div id="dl-bar"></div></div>
@@ -337,9 +337,9 @@ select#sort-select{padding:5px 10px;border:1px solid #ddd;border-radius:3px;font
 
     <div class="side-section">
       <div class="side-title">Aktionen</div>
-      <a class="side-link" onclick="clearAll()">&#8594; Bewertungen löschen</a>
+      <a class="side-link admin-only" onclick="clearAll()">&#8594; Bewertungen löschen</a>
       <a class="side-link" onclick="exportCSV()">&#8594; CSV exportieren</a>
-      <a class="side-link" onclick="removeAll()">&#8594; Alle entfernen</a>
+      <a class="side-link admin-only" onclick="removeAll()">&#8594; Alle entfernen</a>
     </div>
   </div>
 </div>
@@ -437,8 +437,24 @@ if(savedToken){
 
 // ── STATE ──
 let photos=[], currentFilter='all', lbIndex=0;
+const ADMIN_EMAIL = 'bianca.bollmeier@gmx.de';
+let isAdmin = false;
 
 async function init(){
+  // Prüfen ob Admin eingeloggt
+  try {
+    const res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + authToken }
+    });
+    const user = await res.json();
+    isAdmin = user.email === ADMIN_EMAIL;
+  } catch(e) { isAdmin = false; }
+
+  // Admin-Buttons ein/ausblenden
+  document.querySelectorAll('.admin-only').forEach(el => {
+    el.style.display = isAdmin ? '' : 'none';
+  });
+
   setSyncStatus('Lade Fotos...');
   try{
     const data=await DB.getAll();
